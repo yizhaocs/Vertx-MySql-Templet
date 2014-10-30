@@ -45,7 +45,7 @@ public class SingletonOfPrintingMethodsOfClient {
 			System.out.println(SingletonOfSuperClient.getState() + " " + "Response Send:");
 			System.out.println("HTTP method:" + BehaviorOfCurlCommandsSetter.currentRequest);
 			System.out.println("Path:" + BehaviorOfCurlCommandsSetter.currentPath);
-			if (!SingletonOfSuperClient.getState().equals(StatesOfClient.STATE_UPLOAD)) {
+			if (!SingletonOfSuperClient.getState().equals(StatesOfClient.STATE_POST)) {
 				System.out.println("Json Body:" + BehaviorOfCurlCommandsSetter.currentDataSendToServer);
 			}
 			System.out.println(ct.END_SMALL);

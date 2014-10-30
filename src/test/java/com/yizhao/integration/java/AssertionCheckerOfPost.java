@@ -1,12 +1,11 @@
 package com.yizhao.integration.java;
 
-
-public class CurlCommandDataGeneraterOfUpload implements BehaviorOfCurlCommandDataGenerater {
+public class AssertionCheckerOfPost implements BehaviorOfAssertionChecker {
 
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_UPLOAD:
+		case STATE_POST:
 			break;
 		default:
 		}

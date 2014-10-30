@@ -1,14 +1,13 @@
 package com.yizhao.integration.java;
 
-public class AssertionCheckerOfUpload implements BehaviorOfAssertionChecker {
+public class AssertionCheckerOfDelete implements BehaviorOfAssertionChecker {
 
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_UPLOAD:
+		case STATE_DELETE:
 			break;
 		default:
 		}
 	}
-
 }

@@ -1,16 +1,14 @@
 package com.yizhao.integration.java;
 
 
-
-public class CurlCommandsSetterOfDownload extends BehaviorOfCurlCommandsSetter{
+public class CurlCommandDataGeneraterOfGet implements BehaviorOfCurlCommandDataGenerater {
 
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_DOWNLOAD:
+		case STATE_GET:
 			break;
 		default:
-			pmfc.printCurrentStateInfo();
 		}
 	}
 

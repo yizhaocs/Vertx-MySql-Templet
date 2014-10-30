@@ -1,14 +1,14 @@
 package com.yizhao.integration.java;
 
-public class CurlCommandsSetterOfUpload extends BehaviorOfCurlCommandsSetter {
+public class AssertionCheckerOfGet implements BehaviorOfAssertionChecker {
 
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_UPLOAD:
+		case STATE_GET:
 			break;
 		default:
-			pmfc.printCurrentStateInfo();
 		}
 	}
+
 }

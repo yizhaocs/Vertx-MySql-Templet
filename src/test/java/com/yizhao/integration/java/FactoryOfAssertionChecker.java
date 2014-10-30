@@ -5,9 +5,9 @@ public class FactoryOfAssertionChecker {
 	public BehaviorOfAssertionChecker createChecker(StatesOfClient state) {
 		BehaviorOfAssertionChecker f = null;
 		if (state.toString().indexOf("UPLOAD") >= 0) {
-			f = new AssertionCheckerOfUpload();
+			f = new AssertionCheckerOfPost();
 		} else if (state.toString().indexOf("DOWNLOAD") >= 0) {
-			f = new AssertionCheckerOfDownload();
+			f = new AssertionCheckerOfGet();
 		}
 		return f;
 	}

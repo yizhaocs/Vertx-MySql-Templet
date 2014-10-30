@@ -4,9 +4,9 @@ public class FactoryOfCurlCommandsSetter {
 	public BehaviorOfCurlCommandsSetter createSetter(StatesOfClient state) {
 		BehaviorOfCurlCommandsSetter ccs = null;
 		if (state.toString().indexOf("UPLOAD") >= 0) {
-			ccs = new CurlCommandsSetterOfUpload();
+			ccs = new CurlCommandsSetterOfPost();
 		} else if (state.toString().indexOf("DOWNLOAD") >= 0) {
-			ccs = new CurlCommandsSetterOfDownload();
+			ccs = new CurlCommandsSetterOfGet();
 		}
 		return ccs;
 	}
