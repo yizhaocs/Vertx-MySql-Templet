@@ -15,11 +15,11 @@ public class ApiOfGet extends SuperClassOfApis {
 	public void get(final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
 			// Connecting to Redis on localhost
-			
+
 			JsonObject response = new JsonObject();
 			response.putString("status", "0");
 			response.putString("statusDescription", "Success");
-			//response.putString("result", Arrays.toString(jedis.get(bridge_between_server_and_client.params().get("key").getBytes())));
+			// response.putString("result", Arrays.toString(jedis.get(bridge_between_server_and_client.params().get("key").getBytes())));
 			bridge_between_server_and_client.response().end(response.encodePrettily());
 		} catch (Exception e) {
 			container.logger().error(e.getStackTrace());
@@ -28,7 +28,7 @@ public class ApiOfGet extends SuperClassOfApis {
 			response.putString("statusDescription", "Unknown Error");
 			bridge_between_server_and_client.response().end(response.encodePrettily());
 		} finally {
-			
+
 		}
 	}
 }
