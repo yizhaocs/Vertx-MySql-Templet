@@ -15,11 +15,19 @@ public class SingletonOfConstantsS {
 		return instance;
 	}
 
-	/* Constants for API path */
-	protected final String PATH_OF_POST = "/cloud/:package-name/stream/:stream-key";
-	protected final String PATH_OF_GET = "/cloud/user/:user-key/:package-name/stream/:stream-key";
-	protected final String PATH_OF_DELETE = "/cloud/:package-name/stream/:stream-key";
-	/* Constants for SingletonOfPrintingMethodsOfServer */
+	/* Constants of API path */
+	protected final String PATH_OF_PER_PACKAGE = "/cloud/:package-name/stream/:stream-key";
+	protected final String PATH_OF_PER_PACKAGE_AND_USER = "/cloud/user/:user-key/:package-name/stream/:stream-key";
+	/* Constants of table columns */
+	protected final String[] perPackage_TableColumns = { "id", "package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
+	protected final String[] perPackageAndUser_TableColumns = { "id", "user_key", "package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
+	/* Constants of Headers */
+	protected final String ACCEPT_K = "Accept";
+	protected final String ACCEPT_V = "binary/octet-stream";
+	protected final String APIKEY_K = "APIKEY";
+	protected final String CONTENT_TYPE_K = "Content-Type";
+	protected final String CONTENT_TYPE_V = "-binary/octet-stream";
+	/* Constants of SingletonOfPrintingMethodsOfServer */
 	protected final String HEADER_BEGIN = "{-----------------Server State:";
 	protected final String HEADER_END = "-------------------";
 	protected final String END_SMALL = "----------------------------------------------------------------------------------}";

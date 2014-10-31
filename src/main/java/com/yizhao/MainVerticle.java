@@ -34,10 +34,10 @@ import org.vertx.java.platform.Verticle;
  */
 public class MainVerticle extends Verticle {
 	SingletonOfConfig mSingletonOfConfig = SingletonOfConfig.getInstance();
-	ApiOfPost mApiOfPost;
+	ApiOfUpsert mApiOfPost;
 	ApiOfGet mApiOfGet;
 	ApiOfDelete mApiOfDelete;
-	
+
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
 
 	private void init() {
@@ -68,33 +68,41 @@ public class MainVerticle extends Verticle {
 		httpServer.requestHandler(httpRouteMatcher);
 		httpServer.listen(8080, "0.0.0.0");
 
-		// curl -v -X POST http://localhost:8080/post/a -F "file=@3.png" --trace-ascii /dev/stdout
-		httpRouteMatcher.post("/post/:key", new Handler<HttpServerRequest>() {
+		// curl -v -X PUT http://localhost:8080/cloud/com.fuhu.nabi.radio/stream/stations -F "file=@3.png" --trace-ascii /dev/stdout
+		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at post API");
-				mApiOfPost = new ApiOfPost();
-				mApiOfPost.post(vertx, bridge_between_server_and_client);
+				mApiOfPost = new ApiOfUpsert();
+				mApiOfPost.execute(StatesOfServer.STATE_PER_PACKAGE_UPSERT, vertx, bridge_between_server_and_client);
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/get/a
-		httpRouteMatcher.get("/get/:key", new Handler<HttpServerRequest>() {
+		// curl -v -X GET http://localhost:8080/cloud/com.fuhu.nabi.radio/stream/stations
+		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at get API");
 				mApiOfGet = new ApiOfGet();
-				mApiOfGet.get(vertx, bridge_between_server_and_client);
+				mApiOfGet.execute(StatesOfServer.STATE_PER_PACKAGE_GET, vertx, bridge_between_server_and_client);
 			}
 		});
 
-		// curl -v -X DELETE http://localhost:8080/delete/a
-		httpRouteMatcher.delete("/delete/:key", new Handler<HttpServerRequest>() {
+		// curl -v -X DELETE http://localhost:8080/cloud/com.fuhu.nabi.radio/stream/stations
+		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at delete API");
 				mApiOfDelete = new ApiOfDelete();
-				mApiOfDelete.delete(vertx, bridge_between_server_and_client);
+				mApiOfDelete.execute(StatesOfServer.STATE_PER_PACKAGE_DELETE, vertx, bridge_between_server_and_client);
+			}
+		});
+		
+		
+		httpRouteMatcher.noMatch(new Handler<HttpServerRequest>() {
+			@Override
+			public void handle(HttpServerRequest req) {
+				req.response().end("{ \"status\": \"1\", \"api\": \"nabicloud no match\" }");
 			}
 		});
 	}

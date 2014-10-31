@@ -10,7 +10,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 
 	}
 	
-	public void delete(final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
+	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
 			// Connecting to Redis on localhost
 			

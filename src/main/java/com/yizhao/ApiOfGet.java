@@ -12,7 +12,7 @@ public class ApiOfGet extends SuperClassOfApis {
 
 	}
 
-	public void get(final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
+	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
 			// Connecting to Redis on localhost
 
