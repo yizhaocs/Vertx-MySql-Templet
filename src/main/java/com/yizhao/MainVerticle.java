@@ -68,11 +68,12 @@ public class MainVerticle extends Verticle {
 		httpServer.requestHandler(httpRouteMatcher);
 		httpServer.listen(8080, "0.0.0.0");
 
-		// curl -v -X PUT http://localhost:8080/cloud/com.fuhu.nabi.radio/stream/stations -F "file=@3.png" --trace-ascii /dev/stdout
+		// 
+		// curl -v -X PUT http://localhost:8080/cloud/comfuhunabiradio/stream/stations -F "file=@3.png" --trace-ascii /dev/stdout
 		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
-				container.logger().info("Invoked at post API");
+				container.logger().info("Invoked at upsert API");
 				mApiOfPost = new ApiOfUpsert();
 				mApiOfPost.execute(StatesOfServer.STATE_PER_PACKAGE_UPSERT, vertx, bridge_between_server_and_client);
 			}
