@@ -8,4 +8,8 @@ public class SuperClassOfApis extends MainVerticle {
 		String TS = TIME_STRING.substring(0, TIME_STRING.length() - 3);
 		return TS;
 	}
+
+	protected String generateUuid() {
+		return java.util.UUID.randomUUID().toString();
+	}
 }

@@ -33,6 +33,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							StringBuilder queryBuilder = new StringBuilder();
 							queryBuilder.append(" INSERT INTO ");
 							queryBuilder.append(" per_package(");
+							queryBuilder.append(cs.perPackage_TableColumns[0] + ",");
 							queryBuilder.append(cs.perPackage_TableColumns[1] + ",");
 							queryBuilder.append(cs.perPackage_TableColumns[2] + ",");
 							queryBuilder.append(cs.perPackage_TableColumns[3] + ",");
@@ -40,7 +41,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							queryBuilder.append(cs.perPackage_TableColumns[5] + ",");
 							queryBuilder.append(cs.perPackage_TableColumns[6]);
 							queryBuilder.append(")");
-						//	queryBuilder.append("test" + "(" + "a, b" + ")");
+							// queryBuilder.append("test" + "(" + "a, b" + ")");
 							queryBuilder.append(" VALUES(");
 							queryBuilder.append("\"");
 							queryBuilder.append(bridge_between_server_and_client.params().get("packageName"));
@@ -56,11 +57,13 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							queryBuilder.append(currentTime);
 							queryBuilder.append(")");
 							queryBuilder.append(" ON DUPLICATE KEY UPDATE ");
-							queryBuilder.append(cs.perPackage_TableColumns[0] + "=VALUES(" + cs.perPackage_TableColumns[0] + "),");
-							queryBuilder.append(cs.perPackage_TableColumns[1] + "=VALUES(" + cs.perPackage_TableColumns[1] + "),");
-							queryBuilder.append(cs.perPackage_TableColumns[2] + "=VALUES(" + cs.perPackage_TableColumns[2] + "),");
+
+							queryBuilder.append("id=LAST_INSERT_ID(id)" + ",");
+							// queryBuilder.append(cs.perPackage_TableColumns[0] + "=VALUES(" + cs.perPackage_TableColumns[0] + "),");
+							// queryBuilder.append(cs.perPackage_TableColumns[1] + "=VALUES(" + cs.perPackage_TableColumns[1] + "),");
+							// queryBuilder.append(cs.perPackage_TableColumns[2] + "=VALUES(" + cs.perPackage_TableColumns[2] + "),");
 							queryBuilder.append(cs.perPackage_TableColumns[3] + "=VALUES(" + cs.perPackage_TableColumns[3] + "),");
-							queryBuilder.append(cs.perPackage_TableColumns[4] + "=VALUES(" + cs.perPackage_TableColumns[4] + "),");
+							// queryBuilder.append(cs.perPackage_TableColumns[4] + "=VALUES(" + cs.perPackage_TableColumns[4] + ")");
 							queryBuilder.append(cs.perPackage_TableColumns[5] + "=VALUES(" + cs.perPackage_TableColumns[5] + "),");
 							queryBuilder.append(cs.perPackage_TableColumns[6] + "=VALUES(" + cs.perPackage_TableColumns[6] + ")");
 							queryBuilder.append(" ; ");
