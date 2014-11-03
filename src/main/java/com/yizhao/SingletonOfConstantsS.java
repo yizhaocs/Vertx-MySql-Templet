@@ -19,8 +19,8 @@ public class SingletonOfConstantsS {
 	protected final String PATH_OF_PER_PACKAGE = "/cloud/:packageName/stream/:streamKey";
 	protected final String PATH_OF_PER_PACKAGE_AND_USER = "/cloud/user/:userKey/:packageName/stream/:streamKey";
 	/* Constants of table columns */
-	protected final String[] perPackage_TableColumns = { "uuid", "package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
-	protected final String[] perPackageAndUser_TableColumns = { "id", "user_key", "package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
+	//protected final String[] perPackage_TableColumns = {"package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
+	protected final String[] perPackageAndUser_TableColumns = {"user_key", "package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
 	/* Constants of Headers */
 	protected final String ACCEPT_K = "Accept";
 	protected final String ACCEPT_V = "binary/octet-stream";
