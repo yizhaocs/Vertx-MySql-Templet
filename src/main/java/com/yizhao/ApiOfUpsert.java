@@ -53,6 +53,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 									JsonObject databaseMessageBody = databaseMessage.body();
 									JsonObject response = new JsonObject();
 									response.putString("status", "okay");
+									response.putObject("status", databaseMessageBody);
 									bridge_between_server_and_client.response().end(response.encodePrettily());
 								}
 							});
