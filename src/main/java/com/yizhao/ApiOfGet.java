@@ -1,12 +1,8 @@
 package com.yizhao;
 
-import java.util.Arrays;
-
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
-import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.eventbus.Message;
-import org.vertx.java.core.http.HttpServerFileUpload;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
@@ -41,11 +37,9 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonArray binaryData = results.get(3);
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
-				response.putArray("db", binaryData);
-				// response.putString("binary data", currentTime);
-				// response.putString("lastTimeModified", currentTime);
-				// response.putString("timeCreated", currentTime);
-				// response.putObject("result", databaseMessageBody);
+				response.putArray("binaryData", binaryData);
+				response.putString("lastTimeModified", String.valueOf(results.get(5)));
+				response.putString("timeCreated", String.valueOf(results.get(6)));
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
