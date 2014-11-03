@@ -8,6 +8,7 @@ import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerFileUpload;
 import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
@@ -36,9 +37,12 @@ public class ApiOfGet extends SuperClassOfApis {
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
 				JsonObject databaseMessageBody = databaseMessage.body();
+				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
+				JsonArray results = databaseMessageResults.get(0);
+				JsonArray binaryData = results.get(3);
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
-				response.putObject("db", databaseMessageBody);
+				response.putArray("db", binaryData);
 				// response.putString("binary data", currentTime);
 				// response.putString("lastTimeModified", currentTime);
 				// response.putString("timeCreated", currentTime);
