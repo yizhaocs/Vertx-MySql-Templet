@@ -35,7 +35,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							StringBuilder queryBuilder = new StringBuilder();
 							queryBuilder.append(" INSERT INTO ");
 							queryBuilder.append(" backup(");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[0] + ",");
+							//queryBuilder.append(cs.perPackageAndUser_TableColumns[0] + ",");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[1] + ",");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[2] + ",");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[3] + ",");
@@ -44,10 +44,10 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[6]);
 							queryBuilder.append(")");
 							queryBuilder.append(" VALUES(");
-							queryBuilder.append("\"");
-							queryBuilder.append("\"");
-							queryBuilder.append("\"");
-							queryBuilder.append("\"" + ",");
+//							queryBuilder.append("\"");
+//							queryBuilder.append("\"");
+//							queryBuilder.append("\"");
+//							queryBuilder.append("\"" + ",");
 							queryBuilder.append("\"");
 							queryBuilder.append(bridge_between_server_and_client.params().get("packageName"));
 							queryBuilder.append("\"" + ",");
