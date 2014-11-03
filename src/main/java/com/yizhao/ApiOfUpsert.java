@@ -31,7 +31,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						public void handle(Void arg0) {
 							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));
 							
-							String currentTime = getCurServerTime();
+							final String currentTime = getCurServerTime();
 							StringBuilder queryBuilder = new StringBuilder();
 							queryBuilder.append(" INSERT INTO ");
 							queryBuilder.append(" backup(");
@@ -79,8 +79,10 @@ public class ApiOfUpsert extends SuperClassOfApis {
 								public void handle(Message<JsonObject> databaseMessage) {
 									JsonObject databaseMessageBody = databaseMessage.body();
 									JsonObject response = new JsonObject();
-									response.putString("status", "0");
-									response.putObject("result", databaseMessageBody);
+									response.putString("status", "okay");
+									response.putString("lastTimeModified", currentTime);
+									response.putString("timeCreated", currentTime);
+									//response.putObject("result", databaseMessageBody);
 									bridge_between_server_and_client.response().end(response.encodePrettily());
 								}
 							});

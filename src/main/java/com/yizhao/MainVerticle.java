@@ -79,7 +79,7 @@ public class MainVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/com.fuhu.nabi.radio/stream/stations
+		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations 
 		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
