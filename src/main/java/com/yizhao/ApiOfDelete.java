@@ -12,15 +12,16 @@ public class ApiOfDelete extends SuperClassOfApis {
 	public ApiOfDelete() {
 
 	}
-	
+
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append(" UPDATE * FROM backup WHERE ");
-		queryBuilder.append(cs.perPackageAndUser_TableColumns[1] + "=" + "\"" + bridge_between_server_and_client.params().get("packageName") + "\"");
-		queryBuilder.append(" AND ");
-		queryBuilder.append(cs.perPackageAndUser_TableColumns[2] + "=" + "\"" + bridge_between_server_and_client.params().get("streamKey") + "\"");
-		queryBuilder.append(";");
-		String queryResult = queryBuilder.toString();
+		String packageName = bridge_between_server_and_client.params().get("packageName");
+		String streamKey = bridge_between_server_and_client.params().get("streamKey");
+		String[] updateCoulmns = { cs.perPackageAndUser_TableColumns[4] };
+		String[] updateValues = { "1" };
+		String[] conditionsColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
+		String[] conditionsValues = { "\"" + packageName + "\"", "\"" + streamKey + "\"" };
+
+		String queryResult = qg.update("backup", updateCoulmns, updateValues, conditionsColumns, conditionsValues);
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
 		rawCommandJson.putString("action", "raw");
@@ -33,16 +34,9 @@ public class ApiOfDelete extends SuperClassOfApis {
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
 				JsonObject databaseMessageBody = databaseMessage.body();
-				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
-				JsonArray results = databaseMessageResults.get(0);
-				JsonArray binaryData = results.get(3);
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
-				response.putArray("db", binaryData);
-				// response.putString("binary data", currentTime);
-				// response.putString("lastTimeModified", currentTime);
-				// response.putString("timeCreated", currentTime);
-				// response.putObject("result", databaseMessageBody);
+				response.putObject("result", databaseMessageBody);
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
