@@ -18,7 +18,12 @@ public class ApiOfGet extends SuperClassOfApis {
 	}
 
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-		String queryResult = qg.select("*", "backup", conditionBuilder(bridge_between_server_and_client));
+		String packageName = bridge_between_server_and_client.params().get("packageName");
+		String streamKey = bridge_between_server_and_client.params().get("streamKey");
+		String[] conditionsColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[4] };
+		String[] conditionsValues = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "0" };
+
+		String queryResult = qg.select("*", "backup", conditionsColumns, conditionsValues);
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
 		rawCommandJson.putString("action", "raw");
@@ -44,14 +49,5 @@ public class ApiOfGet extends SuperClassOfApis {
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
-	}
-
-	private String conditionBuilder(HttpServerRequest bridge_between_server_and_client) {
-		StringBuilder conditions = new StringBuilder();
-		conditions.append(cs.perPackageAndUser_TableColumns[1] + "=" + "\"" + bridge_between_server_and_client.params().get("packageName") + "\"");
-		conditions.append(" AND ");
-		conditions.append(cs.perPackageAndUser_TableColumns[2] + "=" + "\"" + bridge_between_server_and_client.params().get("streamKey") + "\"");
-		conditions.append(";");
-		return conditions.toString();
 	}
 }
