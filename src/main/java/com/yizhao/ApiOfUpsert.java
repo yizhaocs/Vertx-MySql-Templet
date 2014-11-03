@@ -29,6 +29,8 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					}).endHandler(new Handler<Void>() {
 						@Override
 						public void handle(Void arg0) {
+							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));
+							
 							String currentTime = getCurServerTime();
 							StringBuilder queryBuilder = new StringBuilder();
 							queryBuilder.append(" INSERT INTO ");
@@ -41,7 +43,6 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[5] + ",");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[6]);
 							queryBuilder.append(")");
-							// queryBuilder.append("test" + "(" + "a, b" + ")");
 							queryBuilder.append(" VALUES(");
 							queryBuilder.append("\"");
 							queryBuilder.append("\"");
@@ -54,20 +55,14 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							queryBuilder.append(bridge_between_server_and_client.params().get("streamKey"));
 							queryBuilder.append("\"" + ",");
 							queryBuilder.append("\"");
-							queryBuilder.append(Arrays.toString(mainBuffer.getBytes()));
+							queryBuilder.append(binaryString);
 							queryBuilder.append("\"" + ",");
 							queryBuilder.append(0 + ",");
 							queryBuilder.append(currentTime + ",");
 							queryBuilder.append(currentTime);
 							queryBuilder.append(")");
 							queryBuilder.append(" ON DUPLICATE KEY UPDATE ");
-
-							// queryBuilder.append(cs.perPackageAndUser_TableColumns[0] + "=VALUES(" + cs.perPackageAndUser_TableColumns[0] + "),");
-							// queryBuilder.append(cs.perPackageAndUser_TableColumns[1] + "=VALUES(" + cs.perPackageAndUser_TableColumns[1] + "),");
-							// queryBuilder.append(cs.perPackageAndUser_TableColumns[2] + "=VALUES(" + cs.perPackageAndUser_TableColumns[2] + "),");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[3] + "=VALUES(" + cs.perPackageAndUser_TableColumns[3] + "),");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[4] + "=VALUES(" + cs.perPackageAndUser_TableColumns[4] + "),");
-							//queryBuilder.append(cs.perPackageAndUser_TableColumns[5] + "=VALUES(" + cs.perPackageAndUser_TableColumns[5] + "),");
 							queryBuilder.append(cs.perPackageAndUser_TableColumns[6] + "=VALUES(" + cs.perPackageAndUser_TableColumns[6] + ")");
 							queryBuilder.append(" ; ");
 							String queryResult = queryBuilder.toString();
