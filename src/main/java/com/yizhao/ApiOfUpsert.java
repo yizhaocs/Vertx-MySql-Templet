@@ -29,43 +29,15 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					}).endHandler(new Handler<Void>() {
 						@Override
 						public void handle(Void arg0) {
-							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));
-							
+							String packageName = bridge_between_server_and_client.params().get("packageName");
+							String streamKey = bridge_between_server_and_client.params().get("streamKey");
+							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));							
 							final String currentTime = getCurServerTime();
-							StringBuilder queryBuilder = new StringBuilder();
-							queryBuilder.append(" INSERT INTO ");
-							queryBuilder.append(" backup(");
-							//queryBuilder.append(cs.perPackageAndUser_TableColumns[0] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[1] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[2] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[3] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[4] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[5] + ",");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[6]);
-							queryBuilder.append(")");
-							queryBuilder.append(" VALUES(");
-//							queryBuilder.append("\"");
-//							queryBuilder.append("\"");
-//							queryBuilder.append("\"");
-//							queryBuilder.append("\"" + ",");
-							queryBuilder.append("\"");
-							queryBuilder.append(bridge_between_server_and_client.params().get("packageName"));
-							queryBuilder.append("\"" + ",");
-							queryBuilder.append("\"");
-							queryBuilder.append(bridge_between_server_and_client.params().get("streamKey"));
-							queryBuilder.append("\"" + ",");
-							queryBuilder.append("\"");
-							queryBuilder.append(binaryString);
-							queryBuilder.append("\"" + ",");
-							queryBuilder.append(0 + ",");
-							queryBuilder.append(currentTime + ",");
-							queryBuilder.append(currentTime);
-							queryBuilder.append(")");
-							queryBuilder.append(" ON DUPLICATE KEY UPDATE ");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[3] + "=VALUES(" + cs.perPackageAndUser_TableColumns[3] + "),");
-							queryBuilder.append(cs.perPackageAndUser_TableColumns[6] + "=VALUES(" + cs.perPackageAndUser_TableColumns[6] + ")");
-							queryBuilder.append(" ; ");
-							String queryResult = queryBuilder.toString();
+							String[] insertColumns = {cs.perPackageAndUser_TableColumns[1],cs.perPackageAndUser_TableColumns[2],cs.perPackageAndUser_TableColumns[3],cs.perPackageAndUser_TableColumns[4],cs.perPackageAndUser_TableColumns[5],cs.perPackageAndUser_TableColumns[6]};
+							String[] values = {"\""+ packageName + "\"", "\""+ streamKey + "\"","\"" + binaryString + "\"", "0", currentTime,currentTime};
+							String[] updateColumns = {cs.perPackageAndUser_TableColumns[3] ,cs.perPackageAndUser_TableColumns[6] };
+							
+							String queryResult = qg.upsert("backup", insertColumns, values, updateColumns);
 							System.out.println("query:" + queryResult);
 							JsonObject rawCommandJson = new JsonObject();
 							rawCommandJson.putString("action", "raw");
@@ -82,7 +54,6 @@ public class ApiOfUpsert extends SuperClassOfApis {
 									response.putString("status", "okay");
 									response.putString("lastTimeModified", currentTime);
 									response.putString("timeCreated", currentTime);
-									//response.putObject("result", databaseMessageBody);
 									bridge_between_server_and_client.response().end(response.encodePrettily());
 								}
 							});
