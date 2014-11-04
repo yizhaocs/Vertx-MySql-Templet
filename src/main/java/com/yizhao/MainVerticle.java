@@ -68,8 +68,7 @@ public class MainVerticle extends Verticle {
 		httpServer.requestHandler(httpRouteMatcher);
 		httpServer.listen(8080, "0.0.0.0");
 
-		// 
-		// curl -v -X PUT http://localhost:8080/cloud/comfuhunabiradio/stream/stations -F "file=@3.png" --trace-ascii /dev/stdout
+		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout 
 		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {

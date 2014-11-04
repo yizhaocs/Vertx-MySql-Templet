@@ -19,7 +19,7 @@ public class ApiOfGet extends SuperClassOfApis {
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2]};
 		String[] whereClauseValues = { "'\"" + "\"'", "\"" + packageName + "\"", "\"" + streamKey + "\"" };
 
-		String queryResult = qg.select("*", cs.tableName, whereClauseCoulmns, whereClauseValues);
+		String queryResult = qg.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseValues);
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
 		rawCommandJson.putString("action", "raw");

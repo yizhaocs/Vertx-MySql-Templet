@@ -17,48 +17,39 @@ public class ApiOfUpsert extends SuperClassOfApis {
 
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
-			bridge_between_server_and_client.expectMultiPart(true);
-			bridge_between_server_and_client.uploadHandler(new Handler<HttpServerFileUpload>() {
-				public void handle(final HttpServerFileUpload upload) {
-					final Buffer mainBuffer = new Buffer();
-					upload.dataHandler(new Handler<Buffer>() {
-						@Override
-						public void handle(Buffer buffer) {
-							mainBuffer.appendBuffer(buffer);
-						}
-					}).endHandler(new Handler<Void>() {
-						@Override
-						public void handle(Void arg0) {
-							String packageName = bridge_between_server_and_client.params().get("packageName");
-							String streamKey = bridge_between_server_and_client.params().get("streamKey");
-							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));
-							final String currentTime = getCurServerTime();
-							String[] insertColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5]};
-							String[] values = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "\"" + binaryString + "\"", currentTime, currentTime };
-							String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
+			bridge_between_server_and_client.bodyHandler(new Handler<Buffer>() {
+				/*
+				 * This handler recieves curl body buffer from Client
+				 */
+				@Override
+				public void handle(Buffer curlBody) {
+					String packageName = bridge_between_server_and_client.params().get("packageName");
+					String streamKey = bridge_between_server_and_client.params().get("streamKey");
+					StringBuilder binaryString = new StringBuilder(Arrays.toString(curlBody.getBytes()));
+					final String currentTime = getCurServerTime();
+					String[] insertColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
+					String[] values = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "\"" + binaryString + "\"", currentTime, currentTime };
+					String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
 
-							String queryResult = qg.upsert(cs.tableName, insertColumns, values, updateColumns);
-							System.out.println("query:" + queryResult);
-							JsonObject rawCommandJson = new JsonObject();
-							rawCommandJson.putString("action", "raw");
-							rawCommandJson.putString("command", queryResult);
-							System.out.println("rawCommandJson:" + rawCommandJson.encodePrettily());
-							vertx.eventBus().send("backend", rawCommandJson, new Handler<Message<JsonObject>>() {
-								/*
-								 * This handler recieves response from MySql DBMS
-								 */
-								@Override
-								public void handle(Message<JsonObject> databaseMessage) {
-									JsonObject databaseMessageBody = databaseMessage.body();
-									JsonObject response = new JsonObject();
-									response.putString("status", "okay");
-									response.putObject("status", databaseMessageBody);
-									bridge_between_server_and_client.response().end(response.encodePrettily());
-								}
-							});
+					String queryResult = qg.upsert(cs.tableName, insertColumns, values, updateColumns);
+					System.out.println("query:" + queryResult);
+					JsonObject rawCommandJson = new JsonObject();
+					rawCommandJson.putString("action", "raw");
+					rawCommandJson.putString("command", queryResult);
+					System.out.println("rawCommandJson:" + rawCommandJson.encodePrettily());
+					vertx.eventBus().send("backend", rawCommandJson, new Handler<Message<JsonObject>>() {
+						/*
+						 * This handler recieves response from MySql DBMS
+						 */
+						@Override
+						public void handle(Message<JsonObject> databaseMessage) {
+							JsonObject databaseMessageBody = databaseMessage.body();
+							JsonObject response = new JsonObject();
+							response.putString("status", "okay");
+							response.putObject("status", databaseMessageBody);
+							bridge_between_server_and_client.response().end(response.encodePrettily());
 						}
 					});
-
 				}
 			});
 		} catch (Exception e) {
