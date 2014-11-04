@@ -1,9 +1,7 @@
 package com.yizhao;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
@@ -14,13 +12,11 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
-
 	public ApiOfGet() {
 
 	}
 
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
@@ -44,39 +40,34 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonArray results = databaseMessageResults.get(0);
 				JsonArray binaryDataArray = results.get(0);
 				byte[] bytearr = new byte[binaryDataArray.size()];
-				// int i = 0;
+
 				for (int i = 0; i < binaryDataArray.size(); i++) {
 					bytearr[i] = binaryDataArray.get(i);
-
 				}
-				// byte[] binaryData = results.get(0).getBytes();
+
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryDataArray);
-				try {
-					// String base64String = Base64.encodeBase64String(binaryDataArray);
-					byteArrayToFile(bytearr);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				byteArrayToFile(bytearr);
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
 	}
 
-	public void byteArrayToFile(byte[] byteArray) throws IOException {
+	public void byteArrayToFile(byte[] byteArray) {
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream("/Users/yizhao/Desktop/abc.png");
 			out.write(byteArray);
-		} catch (FileNotFoundException e) {
-			System.out.println("Caught FileNotFoundException: " + e.getMessage());
 		} catch (IOException e) {
 			System.out.println("Caught IOException: " + e.getMessage());
 		} finally {
 			if (out != null) {
-				out.close();
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println("Caught IOException: " + e.getMessage());
+				}
 			}
 		}
 	}
