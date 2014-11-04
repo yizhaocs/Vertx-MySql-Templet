@@ -3,7 +3,7 @@ package com.yizhao.integration.java;
 import org.junit.runner.RunWith;
 
 @RunWith(org.junit.runners.Suite.class)
-@org.junit.runners.Suite.SuiteClasses({ JUnitOfUpload.class, JUnitOfDownload.class })
+@org.junit.runners.Suite.SuiteClasses({ JUnitOfPerPackage.class, JUnitOfPerPackageAndUser.class })
 public class JUnitTestMain {
 
 }

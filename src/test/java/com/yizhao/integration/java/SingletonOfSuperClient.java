@@ -120,9 +120,6 @@ public class SingletonOfSuperClient extends TestVerticle {
 
 	private void getDataFromDB() {
 		switch (getState()) {
-		case STATE_POST:
-		case STATE_GET:
-			break;
 		default:
 			break;
 		}
