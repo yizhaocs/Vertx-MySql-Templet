@@ -1,2 +1,2 @@
 mvn -q clean package
-vertx runmod com.yizhao~my-module~0.1
+vertx runmod com.fuhu~my-module~0.1

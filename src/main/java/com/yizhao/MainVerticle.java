@@ -1,4 +1,4 @@
-package com.fuhu;
+package com.yizhao;
 
 /*
  * Copyright 2013 Red Hat, Inc.

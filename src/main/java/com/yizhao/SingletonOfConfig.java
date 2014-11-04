@@ -1,4 +1,4 @@
-package com.fuhu;
+package com.yizhao;
 
 import java.io.BufferedReader;
 import java.io.IOException;

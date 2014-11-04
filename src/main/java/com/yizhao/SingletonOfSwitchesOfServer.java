@@ -1,4 +1,4 @@
-package com.fuhu;
+package com.yizhao;
 
 
 public class SingletonOfSwitchesOfServer {
