@@ -42,7 +42,7 @@ public class ApiOfGet extends SuperClassOfApis {
 				for (int i = 0; i < binaryDataArray.size(); i++) {
 					bytearr[i] = binaryDataArray.get(i);
 				}
-//				byteArrayToFile(bytearr);
+				byteArrayToFile(bytearr);
 				bridge_between_server_and_client.response().end(new Buffer().appendBytes(bytearr));
 			}
 		});
