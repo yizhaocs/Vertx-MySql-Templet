@@ -23,7 +23,7 @@ public class SingletonOfConfig {
 		return instance;
 	}
 	
-	public JsonObject getDbConnectionParam() throws IOException {
+	protected JsonObject getDbConnectionParam() throws IOException {
 		String internalConfig = IOUtils.toString(new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/ServerConfig.json"))));
 		JsonObject mysqlConfigJson = new JsonObject(internalConfig);
 		JsonObject dbConfigResult = mysqlConfigJson.getObject("DbConnectionParam");

@@ -24,14 +24,14 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					String packageName = bridge_between_server_and_client.params().get("packageName");
 					String streamKey = bridge_between_server_and_client.params().get("streamKey");
 					// StringBuilder binaryString = new StringBuilder(bytesToHex(curlBody.getBytes()));
-					String hex = byteArrayToHexString(curlBody.getBytes());
+					String hex = utility.byteArrayToHexString(curlBody.getBytes());
 					final String currentTime = getCurServerTime();
 					String[] insertColumnsWithoutUserKey = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
 					String[] valuesWithoutUserKey = { "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime, currentTime };
 					String[] insertColumnsWithUserKey = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
 					String[] valuesWithUserKey = { "'" + userKey + "'", "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime, currentTime };
 					String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
-					String queryResult = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? qg.upsert(cs.tableName, insertColumnsWithUserKey, valuesWithUserKey, updateColumns) : qg.upsert(cs.tableName, insertColumnsWithoutUserKey, valuesWithoutUserKey, updateColumns);
+					String queryResult = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? queryGenerator.upsert(cs.tableName, insertColumnsWithUserKey, valuesWithUserKey, updateColumns) : queryGenerator.upsert(cs.tableName, insertColumnsWithoutUserKey, valuesWithoutUserKey, updateColumns);
 					System.out.println("query:" + queryResult);
 					JsonObject rawCommandJson = new JsonObject();
 					rawCommandJson.putString("action", "raw");
@@ -63,14 +63,5 @@ public class ApiOfUpsert extends SuperClassOfApis {
 		}
 	}
 
-	private String byteArrayToHexString(byte[] byteArray) {
-		char[] hexArray = "0123456789ABCDEF".toCharArray();
-		char[] hexChars = new char[byteArray.length * 2];
-		for (int i = 0; i < byteArray.length; i++) {
-			int v = byteArray[i] & 0xFF;
-			hexChars[i * 2] = hexArray[v >>> 4];
-			hexChars[i * 2 + 1] = hexArray[v & 0x0F];
-		}
-		return new String(hexChars);
-	}
+
 }

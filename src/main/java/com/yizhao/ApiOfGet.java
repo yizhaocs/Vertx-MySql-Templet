@@ -1,8 +1,5 @@
 package com.yizhao;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
 import org.vertx.java.core.buffer.Buffer;
@@ -23,7 +20,7 @@ public class ApiOfGet extends SuperClassOfApis {
 
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
 		String[] whereClauseValues = { state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? "'" + userKey + "'" : "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
-		String queryResult = qg.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseValues);
+		String queryResult = queryGenerator.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseValues);
 
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
@@ -44,27 +41,10 @@ public class ApiOfGet extends SuperClassOfApis {
 				for (int i = 0; i < binaryDataArray.size(); i++) {
 					bytearr[i] = binaryDataArray.get(i);
 				}
-				byteArrayToFile(bytearr);
+				utility.byteArrayToFile(bytearr);
 				bridge_between_server_and_client.response().end(new Buffer().appendBytes(bytearr));
 			}
 		});
 	}
 
-	public void byteArrayToFile(byte[] byteArray) {
-		FileOutputStream out = null;
-		try {
-			out = new FileOutputStream("/Users/yizhao/Desktop/abc.png");
-			out.write(byteArray);
-		} catch (IOException e) {
-			System.out.println("Caught IOException: " + e.getMessage());
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-					System.out.println("Caught IOException: " + e.getMessage());
-				}
-			}
-		}
-	}
 }

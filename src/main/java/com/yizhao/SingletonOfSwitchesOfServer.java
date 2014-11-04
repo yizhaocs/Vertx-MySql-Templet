@@ -19,7 +19,7 @@ public class SingletonOfSwitchesOfServer {
 	private final boolean Testing_Print_SWITCH = true;
 	private final boolean STATUS_DESCRIPTION_SWITCH = true;
 
-	public boolean isTesting_Print_Switch() {
+	protected boolean isTesting_Print_Switch() {
 		return Testing_Print_SWITCH;
 	}
 

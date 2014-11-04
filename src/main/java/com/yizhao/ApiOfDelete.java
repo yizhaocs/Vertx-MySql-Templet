@@ -19,7 +19,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 		
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
 		String[] whereClauseValues = {state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE)? "'" + userKey + "'" :"'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
-		String queryResult = qg.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
+		String queryResult = queryGenerator.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
 
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
@@ -41,5 +41,6 @@ public class ApiOfDelete extends SuperClassOfApis {
 		});
 	}
 	
+
 
 }

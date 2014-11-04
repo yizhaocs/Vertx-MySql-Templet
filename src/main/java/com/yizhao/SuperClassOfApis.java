@@ -1,8 +1,8 @@
 package com.yizhao;
 
 public class SuperClassOfApis extends MainVerticle {
-	SingletonOfQueryGenerator qg = SingletonOfQueryGenerator.getInstance();
-
+	SingletonOfQueryGenerator queryGenerator = SingletonOfQueryGenerator.getInstance();
+	SingletonOfUtility utility = SingletonOfUtility.getInstance();
 	protected String getCurServerTime() {
 		long TIME = System.currentTimeMillis();
 		String TIME_STRING = String.valueOf(TIME);
