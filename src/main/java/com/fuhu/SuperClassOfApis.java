@@ -1,4 +1,4 @@
-package com.yizhao;
+package com.fuhu;
 
 public class SuperClassOfApis extends MainVerticle {
 	SingletonOfQueryGenerator qg = SingletonOfQueryGenerator.getInstance();

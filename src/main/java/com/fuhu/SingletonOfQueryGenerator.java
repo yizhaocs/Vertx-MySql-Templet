@@ -1,4 +1,4 @@
-package com.yizhao;
+package com.fuhu;
 
 public class SingletonOfQueryGenerator {
 	private static SingletonOfQueryGenerator instance = null;

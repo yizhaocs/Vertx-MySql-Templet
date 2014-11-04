@@ -1,4 +1,4 @@
-package com.yizhao;
+package com.fuhu;
 
 public class SingletonOfConstantsS {
 	/* Setup for Singleton pattern */

@@ -1,4 +1,4 @@
-package com.yizhao;
+package com.fuhu;
 
 public enum StatesOfServer {
 	STATE_PER_PACKAGE_UPSERT, STATE_PER_PACKAGE_GET, STATE_PER_PACKAGE_DELETE,

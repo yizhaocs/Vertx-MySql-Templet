@@ -1,4 +1,4 @@
-package com.yizhao;
+package com.fuhu;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
