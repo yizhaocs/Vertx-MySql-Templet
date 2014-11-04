@@ -40,12 +40,8 @@ public class MainVerticle extends Verticle {
 
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
 
-	private void init() {
-		JsonObject dbConfig = null;
-
-		dbConfig = mSingletonOfServerConfigSetup.getDBconfig();
-
-		container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", dbConfig, new AsyncResultHandler<String>() {
+	private void deployMySqlModule() {
+		container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", mSingletonOfServerConfigSetup.getDBconfig(), new AsyncResultHandler<String>() {
 			public void handle(AsyncResult<String> asyncResult) {
 				System.out.println("MySQL/Postgres module deployment ID: " + asyncResult.result());
 				System.out.println("MySQL/Postgres module deployment failed: " + asyncResult.failed());
@@ -58,7 +54,7 @@ public class MainVerticle extends Verticle {
 	}
 
 	public void start() {
-		init();
+		deployMySqlModule();
 		RouteMatcher httpRouteMatcher = new RouteMatcher();
 		HttpServer httpServer = vertx.createHttpServer();
 		httpServer.requestHandler(httpRouteMatcher);
