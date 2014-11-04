@@ -13,7 +13,6 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
-
 public class ApiOfGet extends SuperClassOfApis {
 
 	public ApiOfGet() {
@@ -21,10 +20,10 @@ public class ApiOfGet extends SuperClassOfApis {
 	}
 
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-		
+
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
-		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2]};
+		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
 		String[] whereClauseValues = { "'\"" + "\"'", "\"" + packageName + "\"", "\"" + streamKey + "\"" };
 
 		String queryResult = qg.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseValues);
@@ -45,19 +44,19 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonArray results = databaseMessageResults.get(0);
 				JsonArray binaryDataArray = results.get(0);
 				byte[] bytearr = new byte[binaryDataArray.size()];
-			//	int i = 0;
-				for(int i = 0; i<binaryDataArray.size(); i++){
+				// int i = 0;
+				for (int i = 0; i < binaryDataArray.size(); i++) {
 					bytearr[i] = binaryDataArray.get(i);
-					
+
 				}
-				//byte[] binaryData = results.get(0).getBytes();
+				// byte[] binaryData = results.get(0).getBytes();
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryDataArray);
-				
+				System.out.println("XXXXXXXXXXXXXX1");
 				try {
-					//String base64String = Base64.encodeBase64String(binaryDataArray);
-					readIMAGEFileThenCopyIMAGEFile(bytearr);
+					// String base64String = Base64.encodeBase64String(binaryDataArray);
+					byteArrayToFile(bytearr);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -66,23 +65,23 @@ public class ApiOfGet extends SuperClassOfApis {
 			}
 		});
 	}
-	
-	String toBinary( byte[] bytes )
-	{
-	    StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
-	    for( int i = 0; i < Byte.SIZE * bytes.length; i++ )
-	        sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
-	    return sb.toString();
+
+	String toBinary(byte[] bytes) {
+		StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
+		for (int i = 0; i < Byte.SIZE * bytes.length; i++)
+			sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
+		return sb.toString();
 	}
-	
-	public  void readIMAGEFileThenCopyIMAGEFile(byte[] byteA) throws IOException {
+
+	public void byteArrayToFile(byte[] byteA) throws IOException {
+		System.out.println("XXXXXXXXXXXXXX2");
 		System.out.println(Arrays.toString(byteA));
 
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream("/Users/yizhao/Desktop/abc.png");
 
-			for(Byte b : byteA){
+			for (Byte b : byteA) {
 				int i = b.intValue();
 				out.write(i);
 			}
@@ -91,7 +90,7 @@ public class ApiOfGet extends SuperClassOfApis {
 		} catch (IOException e) {
 			System.out.println("Caught IOException: " + e.getMessage());
 		} finally {
-	
+
 			if (out != null) {
 				out.close();
 			}
