@@ -33,7 +33,7 @@ import org.vertx.java.platform.Verticle;
  This is a simple Java verticle which receives `ping` messages on the event bus and sends back `pong` replies
  */
 public class MainVerticle extends Verticle {
-	SingletonOfConfig mSingletonOfConfig = SingletonOfConfig.getInstance();
+	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
 	ApiOfUpsert mApiOfPost;
 	ApiOfGet mApiOfGet;
 	ApiOfDelete mApiOfDelete;
@@ -42,12 +42,8 @@ public class MainVerticle extends Verticle {
 
 	private void init() {
 		JsonObject dbConfig = null;
-		try {
-			dbConfig = mSingletonOfConfig.getDbConnectionParam();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		dbConfig = mSingletonOfServerConfigSetup.getDBconfig();
 
 		container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", dbConfig, new AsyncResultHandler<String>() {
 			public void handle(AsyncResult<String> asyncResult) {
@@ -68,7 +64,7 @@ public class MainVerticle extends Verticle {
 		httpServer.requestHandler(httpRouteMatcher);
 		httpServer.listen(8080, "0.0.0.0");
 
-		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout 
+		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout
 		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -78,7 +74,7 @@ public class MainVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations 
+		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations
 		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -88,7 +84,7 @@ public class MainVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X DELETE http://localhost:8080/cloud/comfuhunabiradio/stream/stations 
+		// curl -v -X DELETE http://localhost:8080/cloud/comfuhunabiradio/stream/stations
 		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -97,8 +93,8 @@ public class MainVerticle extends Verticle {
 				mApiOfDelete.execute(StatesOfServer.STATE_PER_PACKAGE_DELETE, vertx, bridge_between_server_and_client);
 			}
 		});
-		
-		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout 
+
+		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout
 		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -108,7 +104,7 @@ public class MainVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations 
+		// curl -v -X GET http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations
 		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -118,7 +114,7 @@ public class MainVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X DELETE http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations 
+		// curl -v -X DELETE http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations
 		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
@@ -127,8 +123,7 @@ public class MainVerticle extends Verticle {
 				mApiOfDelete.execute(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE, vertx, bridge_between_server_and_client);
 			}
 		});
-		
-		
+
 		httpRouteMatcher.noMatch(new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(HttpServerRequest req) {

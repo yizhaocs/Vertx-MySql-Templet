@@ -31,6 +31,7 @@ public class SingletonOfSuperClient extends TestVerticle {
 	/* For State Machine */
 	protected static StatesOfClient curState = StatesOfClient.STATE_RESET;
 	/* Setup for Singleton Pattern */
+	protected final SingletonOfClientConfigSetup mSingletonOfClientConfigSetup = SingletonOfClientConfigSetup.getInstance();
 	protected final SingletonOfConstantsT ct = SingletonOfConstantsT.getInstance();
 	protected final static SingletonOfConstantsT cts = SingletonOfConstantsT.getInstance();
 	protected final static SingletonOfPrintingMethodsOfClient pmfc = SingletonOfPrintingMethodsOfClient.getInstance();
@@ -45,7 +46,7 @@ public class SingletonOfSuperClient extends TestVerticle {
 	protected static JsonObject currentServerResponseInJsonFormat;
 	/**/
 	protected static int statusCode = 0;
-
+	protected JsonObject dbConfig;
 	protected void sendRequest(StatesOfClient state) {
 		resetState();
 		setState(state);
@@ -148,15 +149,25 @@ public class SingletonOfSuperClient extends TestVerticle {
 	@Override
 	public void start() {
 		initialize();
-		try {
-			serverConfigSetup();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		dbConfig = mSingletonOfClientConfigSetup.getDBconfig();
+		CURL_HTTP_HOST = mSingletonOfClientConfigSetup.getServerHost();
+		CURL_HTTP_PORT = mSingletonOfClientConfigSetup.getServerPort();
+		System.out.println("dbConfig:" + dbConfig);
+		System.out.println("CURL_HTTP_HOST:" + CURL_HTTP_HOST);
+		System.out.println("CURL_HTTP_PORT:" + CURL_HTTP_PORT);
 		System.out.println("System.getProperty(vertx.modulename):" + System.getProperty("vertx.modulename"));
 		// Deploy the module - the System property `vertx.modulename` will
 		// contain the name of the module so you don't have to hardcode it in your tests
+//		container.deployModule(System.getProperty("vertx.modulename"), new AsyncResultHandler<String>() {
+//			@Override
+//			public void handle(AsyncResult<String> asyncResult) {
+//				// Deployment is asynchronous and this this handler will
+//				// be called when it's complete (or failed)
+//				assertTrue(asyncResult.succeeded());
+//				assertNotNull("deploymentID should not be null", asyncResult.result());
+//				startTests();
+//			}
+//		});
 		container.deployModule(System.getProperty("vertx.modulename"), new AsyncResultHandler<String>() {
 			@Override
 			public void handle(AsyncResult<String> asyncResult) {
@@ -164,15 +175,32 @@ public class SingletonOfSuperClient extends TestVerticle {
 				// be called when it's complete (or failed)
 				assertTrue(asyncResult.succeeded());
 				assertNotNull("deploymentID should not be null", asyncResult.result());
-				startTests();
+
+				container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", dbConfig, new AsyncResultHandler<String>() {
+					public void handle(AsyncResult<String> asyncResult) {
+						System.out.println("MySQL/Postgres module deployment ID: " + asyncResult.result());
+						System.out.println("MySQL/Postgres module deployment failed: " + asyncResult.failed());
+						if (asyncResult.failed()) {
+							System.out.println("MySQL/Postgres module deployment asyncResult.cause printStackTrace: ");
+							asyncResult.cause().printStackTrace();
+						}else{
+							startTests();
+						}
+					}
+				});
+				
+//				MySqlModuleDeployer.deploy(container, dbConfigResult, new Handler<AsyncResult<String>>() {
+//					@Override
+//					public void handle(AsyncResult<String> event) {
+//						// If deployed correctly then start the tests!
+//						if (event != null) {
+//							startTests();
+//						}
+//					}
+//				});
 			}
 		});
 	}
 
-	private void serverConfigSetup() throws Exception {
-		String sConfig = IOUtils.toString(new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/ClientConfig.json"))));
-		JsonObject config = new JsonObject(sConfig);
-		CURL_HTTP_HOST = config.getString("server_host");
-		CURL_HTTP_PORT = config.getInteger("server_port");
-	}
+
 }
