@@ -2,6 +2,7 @@ package com.yizhao;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
+import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonArray;
@@ -31,6 +32,7 @@ public class ApiOfGet extends SuperClassOfApis {
 			 */
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
+				Buffer responseBuffer = new Buffer();
 				JsonObject databaseMessageBody = databaseMessage.body();
 				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
 				JsonArray results = databaseMessageResults.get(0);
@@ -38,6 +40,7 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryData);
+				
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
