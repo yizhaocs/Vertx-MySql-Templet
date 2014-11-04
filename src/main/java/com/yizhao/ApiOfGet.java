@@ -16,10 +16,10 @@ public class ApiOfGet extends SuperClassOfApis {
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
-		String[] conditionsColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[4] };
-		String[] conditionsValues = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "0" };
+		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2]};
+		String[] whereClauseValues = { "'\"" + "\"'", "\"" + packageName + "\"", "\"" + streamKey + "\"" };
 
-		String queryResult = qg.select("*", "backup", conditionsColumns, conditionsValues);
+		String queryResult = qg.select("*", cs.tableName, whereClauseCoulmns, whereClauseValues);
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
 		rawCommandJson.putString("action", "raw");
@@ -38,8 +38,6 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryData);
-				response.putString("lastTimeModified", String.valueOf(results.get(5)));
-				response.putString("timeCreated", String.valueOf(results.get(6)));
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});

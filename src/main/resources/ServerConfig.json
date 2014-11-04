@@ -6,7 +6,7 @@
         "port": 3306,
         "username": "root",
         "password": "123456",
-        "database": "nabicloud"
+        "database": "nabiclient"
     },
     "switch": {
         "apikey_switch": "api_key_dev"

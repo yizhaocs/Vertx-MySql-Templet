@@ -15,12 +15,10 @@ public class ApiOfDelete extends SuperClassOfApis {
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
-		String[] updateCoulmns = { cs.perPackageAndUser_TableColumns[4] };
-		String[] updateValues = { "1" };
-		String[] conditionsColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[4] };
-		String[] conditionsValues = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "0" };
+		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
+		String[] whereClauseValues = { "'\"" + "\"'", "\"" + packageName + "\"", "\"" + streamKey + "\"" };
 
-		String queryResult = qg.update("backup", updateCoulmns, updateValues, conditionsColumns, conditionsValues);
+		String queryResult = qg.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
 		System.out.println("query:" + queryResult);
 		JsonObject rawCommandJson = new JsonObject();
 		rawCommandJson.putString("action", "raw");

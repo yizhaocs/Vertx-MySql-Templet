@@ -33,12 +33,11 @@ public class ApiOfUpsert extends SuperClassOfApis {
 							String streamKey = bridge_between_server_and_client.params().get("streamKey");
 							StringBuilder binaryString = new StringBuilder(Arrays.toString(mainBuffer.getBytes()));
 							final String currentTime = getCurServerTime();
-							String[] insertColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5], cs.perPackageAndUser_TableColumns[6] };
-							String[] values = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "\"" + binaryString + "\"", "0", currentTime, currentTime };
-							String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[6] };
-							String[] updateConditionsColumns = { cs.perPackageAndUser_TableColumns[4] };
-							String[] updateConditionsValues = { "0" };
-							String queryResult = qg.upsert("backup", insertColumns, values, updateColumns, updateConditionsColumns, updateConditionsValues);
+							String[] insertColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5]};
+							String[] values = { "\"" + packageName + "\"", "\"" + streamKey + "\"", "\"" + binaryString + "\"", currentTime, currentTime };
+							String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
+
+							String queryResult = qg.upsert(cs.tableName, insertColumns, values, updateColumns);
 							System.out.println("query:" + queryResult);
 							JsonObject rawCommandJson = new JsonObject();
 							rawCommandJson.putString("action", "raw");
