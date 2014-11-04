@@ -34,11 +34,10 @@ import org.vertx.java.platform.Verticle;
  */
 public class MainVerticle extends Verticle {
 	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
+	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
 	ApiOfUpsert mApiOfPost;
 	ApiOfGet mApiOfGet;
 	ApiOfDelete mApiOfDelete;
-
-	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
 
 	private void deployMySqlModule() {
 		container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", mSingletonOfServerConfigSetup.getDBconfig(), new AsyncResultHandler<String>() {
