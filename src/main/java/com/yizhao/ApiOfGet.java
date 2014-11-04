@@ -53,7 +53,6 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryDataArray);
-				System.out.println("XXXXXXXXXXXXXX1");
 				try {
 					// String base64String = Base64.encodeBase64String(binaryDataArray);
 					byteArrayToFile(bytearr);
@@ -66,31 +65,16 @@ public class ApiOfGet extends SuperClassOfApis {
 		});
 	}
 
-	String toBinary(byte[] bytes) {
-		StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
-		for (int i = 0; i < Byte.SIZE * bytes.length; i++)
-			sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
-		return sb.toString();
-	}
-
-	public void byteArrayToFile(byte[] byteA) throws IOException {
-		System.out.println("XXXXXXXXXXXXXX2");
-		System.out.println(Arrays.toString(byteA));
-
+	public void byteArrayToFile(byte[] byteArray) throws IOException {
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream("/Users/yizhao/Desktop/abc.png");
-
-			for (Byte b : byteA) {
-				int i = b.intValue();
-				out.write(i);
-			}
+			out.write(byteArray);
 		} catch (FileNotFoundException e) {
 			System.out.println("Caught FileNotFoundException: " + e.getMessage());
 		} catch (IOException e) {
 			System.out.println("Caught IOException: " + e.getMessage());
 		} finally {
-
 			if (out != null) {
 				out.close();
 			}
