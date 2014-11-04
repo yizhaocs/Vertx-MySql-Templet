@@ -15,7 +15,7 @@ This example also shows you how to write tests in Java, Groovy, Ruby and Python
 
 * To generate a project type the following at the command line, in your project's root directory:
 
-* mvn archetype:generate -Dfilter=io.vertx: -DgroupId=com.yizhao -DartifactId=my-module -Dversion=0.1
+* mvn archetype:generate -Dfilter=io.vertx: -DgroupId=com.fuhu -DartifactId=my-module -Dversion=0.1
 
 * Choose archetype:
 
