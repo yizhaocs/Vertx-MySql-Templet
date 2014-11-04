@@ -34,7 +34,7 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonObject databaseMessageBody = databaseMessage.body();
 				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
 				JsonArray results = databaseMessageResults.get(0);
-				JsonArray binaryData = results.get(3);
+				JsonArray binaryData = results.get(0);
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryData);
