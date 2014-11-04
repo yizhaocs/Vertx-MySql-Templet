@@ -24,10 +24,11 @@ public class ApiOfUpsert extends SuperClassOfApis {
 				public void handle(Buffer curlBody) {
 					String packageName = bridge_between_server_and_client.params().get("packageName");
 					String streamKey = bridge_between_server_and_client.params().get("streamKey");
-					StringBuilder binaryString = new StringBuilder(bytesToHex(curlBody.getBytes()));
+					// StringBuilder binaryString = new StringBuilder(bytesToHex(curlBody.getBytes()));
+					String hex = byteArrayToHexString(curlBody.getBytes());
 					final String currentTime = getCurServerTime();
 					String[] insertColumns = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
-					String[] values = { "'" + packageName + "'", "'" + streamKey + "'", "X'" + binaryString + "'", currentTime, currentTime };
+					String[] values = { "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime, currentTime };
 					String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
 
 					String queryResult = qg.upsert(cs.tableName, insertColumns, values, updateColumns);
@@ -62,13 +63,13 @@ public class ApiOfUpsert extends SuperClassOfApis {
 		}
 	}
 
-	private String bytesToHex(byte[] bytes) {
+	private String byteArrayToHexString(byte[] byteArray) {
 		char[] hexArray = "0123456789ABCDEF".toCharArray();
-		char[] hexChars = new char[bytes.length * 2];
-		for (int j = 0; j < bytes.length; j++) {
-			int v = bytes[j] & 0xFF;
-			hexChars[j * 2] = hexArray[v >>> 4];
-			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+		char[] hexChars = new char[byteArray.length * 2];
+		for (int i = 0; i < byteArray.length; i++) {
+			int v = byteArray[i] & 0xFF;
+			hexChars[i * 2] = hexArray[v >>> 4];
+			hexChars[i * 2 + 1] = hexArray[v & 0x0F];
 		}
 		return new String(hexChars);
 	}

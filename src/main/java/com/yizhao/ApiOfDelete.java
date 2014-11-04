@@ -16,7 +16,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
-		String[] whereClauseValues = { "'\"" + "\"'", "\"" + packageName + "\"", "\"" + streamKey + "\"" };
+		String[] whereClauseValues = { "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
 
 		String queryResult = qg.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
 		System.out.println("query:" + queryResult);
