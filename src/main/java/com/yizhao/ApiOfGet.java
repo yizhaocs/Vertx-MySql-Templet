@@ -34,22 +34,16 @@ public class ApiOfGet extends SuperClassOfApis {
 			 */
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
-				Buffer responseBuffer = new Buffer();
 				JsonObject databaseMessageBody = databaseMessage.body();
 				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
 				JsonArray results = databaseMessageResults.get(0);
 				JsonArray binaryDataArray = results.get(0);
 				byte[] bytearr = new byte[binaryDataArray.size()];
-
 				for (int i = 0; i < binaryDataArray.size(); i++) {
 					bytearr[i] = binaryDataArray.get(i);
 				}
-
-				JsonObject response = new JsonObject();
-				response.putString("status", "okay");
-				response.putArray("binaryData", binaryDataArray);
-				byteArrayToFile(bytearr);
-				bridge_between_server_and_client.response().end(response.encodePrettily());
+//				byteArrayToFile(bytearr);
+				bridge_between_server_and_client.response().end(new Buffer().appendBytes(bytearr));
 			}
 		});
 	}
