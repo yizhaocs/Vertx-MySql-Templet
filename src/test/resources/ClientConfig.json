@@ -1,0 +1,29 @@
+{
+    "DbConnectionParam": {
+        "address": "backend",
+        "connection": "MySQL",
+        "host": "localhost",
+        "port": 3306,
+        "username": "root",
+        "password": "123456",
+        "database": "nabiclient"
+    },
+    "server_host": "localhost",
+    "server_port": 8080,
+    "server_https": false,
+    "server_api_key": "7fec4eea-0ac3-4b5d-a45e-b7edbe2cd16e",
+    
+    "api_key_production": "5e166c85-13dd-47d8-873c-f87baf2d6b21",
+    "api_key_nabigo": "7fec4eea-0ac3-4b5d-a45e-b7edbe2cd16e",
+    "server_host_dev_elb": "dev-nabigo.fuhu.org",
+    "server_host_stg_elb": "stg-nabigo.fuhu.org",
+    "server_host_prod_mirror_elb": "prodmirror-nabigo.fuhu.com",
+    "server_host_prod_elb": "prod-nabigo.fuhu.com",
+    
+    "server_port_dev": 443,
+    "server_https_dev": true,
+
+    "server_host_local": "localhost",
+    "server_port_local": 8080,
+    "server_https_local": false
+}
