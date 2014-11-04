@@ -48,18 +48,24 @@ public class ApiOfGet extends SuperClassOfApis {
 				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
 				JsonArray results = databaseMessageResults.get(0);
 				JsonArray binaryDataArray = results.get(0);
+				byte[] bytearr = new byte[binaryDataArray.size()];
+			//	int i = 0;
+				for(int i = 0; i<binaryDataArray.size(); i++){
+					bytearr[i] = binaryDataArray.get(i);
+					
+				}
 				//byte[] binaryData = results.get(0).getBytes();
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");
 				response.putArray("binaryData", binaryDataArray);
 				
-//				try {
-//					//String base64String = Base64.encodeBase64String(binaryDataArray);
-//					//readIMAGEFileThenCopyIMAGEFile(Base64.decodeBase64(base64String));
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				try {
+					//String base64String = Base64.encodeBase64String(binaryDataArray);
+					readIMAGEFileThenCopyIMAGEFile(bytearr);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
@@ -73,17 +79,15 @@ public class ApiOfGet extends SuperClassOfApis {
 	    return sb.toString();
 	}
 	
-	public  void readIMAGEFileThenCopyIMAGEFile(byte[] b) throws IOException {
-		//FileInputStream in = null;
-		ByteArrayInputStream in = new ByteArrayInputStream(b);
+	public  void readIMAGEFileThenCopyIMAGEFile(byte[] byteA) throws IOException {
+		System.out.println(Arrays.toString(byteA));
+
 		FileOutputStream out = null;
 		try {
-			//in = new FileInputStream("C:\\Users\\Yi\\Desktop\\inputSource.jpg");
-			// When you're working with FileOutputStream you don't have to create the file first,
-			// you can simply start writing to it.
-			out = new FileOutputStream("C:\\Users\\Yi\\Desktop\\outputSource.jpg");
-			int i;
-			while ((i = in.read()) != -1) {
+			out = new FileOutputStream("/Users/yizhao/Desktop/abc.png");
+
+			for(Byte b : byteA){
+				int i = b.intValue();
 				out.write(i);
 			}
 		} catch (FileNotFoundException e) {
