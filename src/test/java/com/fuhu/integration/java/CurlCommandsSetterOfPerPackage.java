@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
+import org.apache.commons.io.IOUtils;
 import org.vertx.java.core.buffer.Buffer;
 
 public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter {
@@ -15,17 +17,29 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 		case STATE_PER_PACKAGE_INSERT:
 			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE;
-			File imageFile = new File("src/test/resources/testing.png");
+			byte[] byteArray = null;
+
+			FileInputStream in = null;
 			try {
-				// Reading a Image file from file system
-				FileInputStream imageInFile = new FileInputStream(imageFile);
-				byte imageData[] = new byte[(int) imageFile.length()];
-				imageInFile.read(imageData);
-				currentDataSendToServer = new Buffer(imageData);
+				in = new FileInputStream("src/test/resources/testing.png");
+				try {
+					byteArray = IOUtils.toByteArray(in);
+					currentDataSendToServer = new Buffer(byteArray);
+					System.out.println("Arrays.toString(IOUtils.toByteArray(imageInFile)):" + Arrays.toString(byteArray));
+					System.out.println("currentDataSendToServer:" + Arrays.toString(currentDataSendToServer.getBytes()));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} catch (FileNotFoundException e) {
-				System.out.println("Image not found" + e);
-			} catch (IOException ioe) {
-				System.out.println("Exception while reading the Image " + ioe);
+				System.out.println("Caught FileNotFoundException: " + e.getMessage());
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			break;
 		case STATE_PER_PACKAGE_UPDATE:
