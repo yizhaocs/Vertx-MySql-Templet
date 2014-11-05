@@ -1,8 +1,11 @@
 package com.fuhu.integration.java;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class JUnitOfPerPackageAndUser extends SingletonOfSuperClient {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
