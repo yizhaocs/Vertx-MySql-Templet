@@ -119,13 +119,15 @@ public class SuperClient extends MainClientVerticle {
 	}
 
 	private void sendRequest() {
-		boolean a = getState().equals(StatesOfClient.STATE_PER_PACKAGE_INSERT);
-		boolean b = getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE);
-		boolean c = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_INSERT);
-		boolean d = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE);
-		if (a || b || c || d) {
+		boolean a = getState().equals(StatesOfClient.STATE_PER_PACKAGE_INSERT_1);
+		boolean b = getState().equals(StatesOfClient.STATE_PER_PACKAGE_INSERT_2);
+		boolean c = getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE);
+		boolean d = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_INSERT_1);
+		boolean e = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_INSERT_2);
+		boolean f = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE);
+		if (a || b || c || d || e || f) {
 			requestSendFromClienttoServer.end(BehaviorOfCurlCommandsSetter.currentDataSendToServer);
-		}else{
+		} else {
 			requestSendFromClienttoServer.end();
 		}
 	}

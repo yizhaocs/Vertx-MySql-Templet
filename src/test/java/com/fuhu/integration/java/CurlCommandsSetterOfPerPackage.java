@@ -14,8 +14,10 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_PER_PACKAGE_INSERT:
-		case STATE_PER_PACKAGE_AND_USER_INSERT:
+		case STATE_PER_PACKAGE_INSERT_1:
+		case STATE_PER_PACKAGE_INSERT_2:
+		case STATE_PER_PACKAGE_AND_USER_INSERT_1:
+		case STATE_PER_PACKAGE_AND_USER_INSERT_2:
 		case STATE_PER_PACKAGE_UPDATE:
 		case STATE_PER_PACKAGE_AND_USER_UPDATE:
 			currentRequest = ct.PUT_REQUEST;

@@ -5,7 +5,7 @@ public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker 
 	@Override
 	public void execute(StatesOfClient state) {
 		switch (state) {
-		case STATE_PER_PACKAGE_INSERT:
+		case STATE_PER_PACKAGE_INSERT_1:
 			break;
 		case STATE_PER_PACKAGE_UPDATE:
 			break;

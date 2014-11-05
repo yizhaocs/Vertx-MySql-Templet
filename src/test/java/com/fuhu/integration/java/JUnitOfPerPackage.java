@@ -12,9 +12,10 @@ public class JUnitOfPerPackage extends SuperClient {
 
 	}
 
+	/* Check for insert is correct */
 	@Test
-	public void _A1_STATE_PER_PACKAGE_INSERT() {
-		sendRequest(StatesOfClient.STATE_PER_PACKAGE_INSERT);
+	public void _A1_STATE_PER_PACKAGE_INSERT_1() {
+		sendRequest(StatesOfClient.STATE_PER_PACKAGE_INSERT_1);
 	}
 
 	@Test
@@ -22,6 +23,7 @@ public class JUnitOfPerPackage extends SuperClient {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_GET_1);
 	}
 
+	/* Check for delete is correct */
 	@Test
 	public void _B1_STATE_PER_PACKAGE_DELETE_1() {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_DELETE_1);
@@ -32,16 +34,23 @@ public class JUnitOfPerPackage extends SuperClient {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_GET_2);
 	}
 
+	/* Check for update is correct */
 	@Test
-	public void _C1_STATE_PER_PACKAGE_UPDATE() {
+	public void _C1_STATE_PER_PACKAGE_INSERT_2() {
+		sendRequest(StatesOfClient.STATE_PER_PACKAGE_INSERT_2);
+	}
+
+	@Test
+	public void _C2_STATE_PER_PACKAGE_UPDATE() {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_UPDATE);
 	}
 
 	@Test
-	public void _C2_STATE_PER_PACKAGE_GET_3() {
+	public void _C3_STATE_PER_PACKAGE_GET_3() {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_GET_3);
 	}
 
+	/* Clean up everything then check for all data are cleaned */
 	@Test
 	public void _D1_STATE_PER_PACKAGE_DELETE_2() {
 		sendRequest(StatesOfClient.STATE_PER_PACKAGE_DELETE_2);
