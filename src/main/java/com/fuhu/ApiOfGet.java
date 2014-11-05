@@ -9,8 +9,9 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
+	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
 	public ApiOfGet() {
-
+		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfGet();
 	}
 
 	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {

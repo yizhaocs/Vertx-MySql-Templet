@@ -7,12 +7,12 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfDelete extends SuperClassOfApis {
-
+	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
 	public ApiOfDelete() {
-
+		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfDelete();
 	}
 
-	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
+	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE) ? bridge_between_server_and_client.params().get("userKey") : null;
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
@@ -32,6 +32,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 			 */
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
+				mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client);
 				JsonObject databaseMessageBody = databaseMessage.body();
 				JsonObject response = new JsonObject();
 				response.putString("status", "okay");

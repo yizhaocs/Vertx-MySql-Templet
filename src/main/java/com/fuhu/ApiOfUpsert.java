@@ -8,8 +8,10 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfUpsert extends SuperClassOfApis {
-	public ApiOfUpsert() {
+	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
 
+	public ApiOfUpsert() {
+		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfUpsert();
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
@@ -31,7 +33,8 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					String[] insertColumnsWithUserKey = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
 					String[] valuesWithUserKey = { "'" + userKey + "'", "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime, currentTime };
 					String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[5] };
-					String queryResult = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? queryGenerator.upsert(cs.tableName, insertColumnsWithUserKey, valuesWithUserKey, updateColumns) : queryGenerator.upsert(cs.tableName, insertColumnsWithoutUserKey, valuesWithoutUserKey, updateColumns);
+					String queryResult = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? queryGenerator.upsert(cs.tableName, insertColumnsWithUserKey, valuesWithUserKey, updateColumns) : queryGenerator.upsert(cs.tableName, insertColumnsWithoutUserKey, valuesWithoutUserKey,
+							updateColumns);
 					System.out.println("query:" + queryResult);
 					JsonObject rawCommandJson = new JsonObject();
 					rawCommandJson.putString("action", "raw");
@@ -62,6 +65,5 @@ public class ApiOfUpsert extends SuperClassOfApis {
 
 		}
 	}
-
 
 }

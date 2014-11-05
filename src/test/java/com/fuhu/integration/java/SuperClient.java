@@ -40,7 +40,7 @@ public class SuperClient extends MainClientVerticle {
 		resetState();
 		setState(state);
 		pmfc.printWhichStateIsTesting();
-
+		addDelayBetweenInsertAndUpdate();
 		try {
 			if (CURL_HTTP_PORT != 443) {
 				client = vertx.createHttpClient().setPort(CURL_HTTP_PORT).setHost(CURL_HTTP_HOST);
@@ -135,6 +135,14 @@ public class SuperClient extends MainClientVerticle {
 		return curState;
 	}
 
-
+	private void addDelayBetweenInsertAndUpdate(){
+		if(getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE)||getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE)){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
