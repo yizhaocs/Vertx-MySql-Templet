@@ -18,21 +18,18 @@ package com.fuhu;
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 
-import java.io.IOException;
-
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.AsyncResultHandler;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
-import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
 
 /*
  This is a simple Java verticle which receives `ping` messages on the event bus and sends back `pong` replies
  */
-public class MainVerticle extends Verticle {
+public class MainServerVerticle extends Verticle {
 	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
 	ApiOfUpsert mApiOfPost;
@@ -52,6 +49,7 @@ public class MainVerticle extends Verticle {
 		});
 	}
 
+	@Override
 	public void start() {
 		deployMySqlModule();
 		RouteMatcher httpRouteMatcher = new RouteMatcher();

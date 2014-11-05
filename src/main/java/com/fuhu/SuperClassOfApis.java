@@ -1,6 +1,6 @@
 package com.fuhu;
 
-public class SuperClassOfApis extends MainVerticle {
+public class SuperClassOfApis extends MainServerVerticle {
 	SingletonOfQueryGenerator queryGenerator = SingletonOfQueryGenerator.getInstance();
 	SingletonOfUtility utility = SingletonOfUtility.getInstance();
 	protected String getCurServerTime() {

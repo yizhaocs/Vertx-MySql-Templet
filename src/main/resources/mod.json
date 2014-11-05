@@ -1,5 +1,5 @@
 {
-  "main":"com.fuhu.MainVerticle",
+  "main":"com.fuhu.MainServerVerticle",
 
   // If your module is going to be registered in the Vert.x module registry you will also need the following
   // mandatory fields
