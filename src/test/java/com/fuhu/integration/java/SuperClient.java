@@ -10,7 +10,7 @@ import org.vertx.java.core.http.HttpClientRequest;
 import org.vertx.java.core.http.HttpClientResponse;
 import org.vertx.java.core.json.JsonObject;
 
-public class SingletonOfSuperClient extends MainClientVerticle {
+public class SuperClient extends MainClientVerticle {
 	/* Setup for Factory pattern */
 	protected final FactoryOfAssertionChecker mAssertionCheckerFactory = new FactoryOfAssertionChecker();
 	protected final FactoryOfCurlCommandsSetter mCurlCommandsSetterFactory = new FactoryOfCurlCommandsSetter();

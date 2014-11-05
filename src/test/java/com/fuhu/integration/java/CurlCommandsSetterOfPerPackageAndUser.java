@@ -13,7 +13,7 @@ public class CurlCommandsSetterOfPerPackageAndUser extends BehaviorOfCurlCommand
 	public void execute(StatesOfClient state) {
 		switch (state) {
 		case STATE_PER_PACKAGE_AND_USER_INSERT:
-			currentRequest = ct.POST_REQUEST;
+			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_AND_USER;
 
 			File imageFile = new File("src/test/resources/testing.png");

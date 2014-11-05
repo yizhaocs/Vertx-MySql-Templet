@@ -24,16 +24,16 @@ public class SingletonOfPrintingMethodsOfClient {
 
 	protected void printWhichStateIsTesting() {
 		if (soc.isTesting_Print_Switch()) {
-			System.out.println("{-----------------Client State:" + SingletonOfSuperClient.getState() + "-------------------");
-			System.out.println(SingletonOfSuperClient.getState() + " " + "is start testing");
+			System.out.println("{-----------------Client State:" + SuperClient.getState() + "-------------------");
+			System.out.println(SuperClient.getState() + " " + "is start testing");
 			System.out.println(ct.END_SMALL);
 		}
 	}
 
 	protected void printMessageFromServer(Buffer body) {
 		if (soc.isTesting_Print_Switch()) {
-			System.out.println("{-----------------Client State:" + SingletonOfSuperClient.getState() + "-------------------");
-			System.out.println(SingletonOfSuperClient.getState() + " " + "Response Recieved:");
+			System.out.println("{-----------------Client State:" + SuperClient.getState() + "-------------------");
+			System.out.println(SuperClient.getState() + " " + "Response Recieved:");
 			System.out.println(body.toString());
 			System.out.println(ct.END_SMALL);
 		}
@@ -41,11 +41,11 @@ public class SingletonOfPrintingMethodsOfClient {
 
 	protected void printCurrentRequestAndPathInCurlCommand() {
 		if (soc.isTesting_Print_Switch()) {
-			System.out.println("{-----------------Client State:" + SingletonOfSuperClient.getState() + "-------------------");
-			System.out.println(SingletonOfSuperClient.getState() + " " + "Response Send:");
+			System.out.println("{-----------------Client State:" + SuperClient.getState() + "-------------------");
+			System.out.println(SuperClient.getState() + " " + "Response Send:");
 			System.out.println("HTTP method:" + BehaviorOfCurlCommandsSetter.currentRequest);
 			System.out.println("Path:" + BehaviorOfCurlCommandsSetter.currentPath);
-//			if (!SingletonOfSuperClient.getState().equals(StatesOfClient.STATE_POST)) {
+//			if (!SuperClient.getState().equals(StatesOfClient.STATE_POST)) {
 //				System.out.println("Json Body:" + BehaviorOfCurlCommandsSetter.currentDataSendToServer);
 //			}
 			System.out.println(ct.END_SMALL);
@@ -60,7 +60,7 @@ public class SingletonOfPrintingMethodsOfClient {
 
 	protected void printCurrentStateInfo() {
 		if (soc.isTesting_Print_Switch()) {
-			System.out.println("start testing for:" + SingletonOfSuperClient.getState());
+			System.out.println("start testing for:" + SuperClient.getState());
 		}
 	}
 }

@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JUnitOfPerPackage extends SingletonOfSuperClient {
+public class JUnitOfPerPackage extends SuperClient {
 	@BeforeClass
 	public static void setUpClass() throws Exception {
 
