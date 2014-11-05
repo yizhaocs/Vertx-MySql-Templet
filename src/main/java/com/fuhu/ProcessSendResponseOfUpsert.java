@@ -6,7 +6,7 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ProcessSendResponseOfUpsert implements BehaviorOfProcessSendResponse {
 	@Override
-	public void execute(StatesOfServer state, Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client) {
+	public void execute(StatesOfServer state, Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		JsonObject databaseMessageBody = null;
 		/* upload profile photo and get profile photo apis does not need database */
 		if (databaseMessage != null) {
@@ -17,9 +17,12 @@ public class ProcessSendResponseOfUpsert implements BehaviorOfProcessSendRespons
 		switch (state) {
 		case STATE_PER_PACKAGE_UPSERT:
 		case STATE_PER_PACKAGE_AND_USER_UPSERT:
-			response.putNumber("status", 0);
-			bridge_between_server_and_client.response().putHeader(cs.CONTENT_TYPE_K, cs.CONTENT_TYPE_BINARY_DATA_V);
 			bridge_between_server_and_client.response().putHeader(cs.CONTENT_TYPE_K, cs.CONTENT_TYPE_JSON_V);
+			response.putString(cs.STATUS, cs.OK);
+			response.putString(cs.STATUS_DESCRIPTION, cs.OK_DESC);
+			response.putString(cs.LAST_TIME_MODIFIED, currentTime);
+
+			
 			endResponse.endResponseWithJson(state, response, bridge_between_server_and_client);
 			break;
 		default:

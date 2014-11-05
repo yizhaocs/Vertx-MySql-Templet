@@ -8,7 +8,7 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ProcessSendResponseOfGet implements BehaviorOfProcessSendResponse {
 	@Override
-	public void execute(StatesOfServer state,  Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client) {
+	public void execute(StatesOfServer state,  Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		JsonObject databaseMessageBody = null;
 
 		if (databaseMessage != null) {

@@ -46,7 +46,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						 */
 						@Override
 						public void handle(Message<JsonObject> databaseMessage) {
-							mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client);
+							mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client,currentTime);
 						}
 					});
 				}

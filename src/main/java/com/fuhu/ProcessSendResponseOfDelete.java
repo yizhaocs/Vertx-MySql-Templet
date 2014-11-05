@@ -6,7 +6,7 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ProcessSendResponseOfDelete implements BehaviorOfProcessSendResponse {
 	@Override
-	public void execute(StatesOfServer state, Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client) {
+	public void execute(StatesOfServer state, Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		JsonObject databaseMessageBody = null;
 		/* upload profile photo and get profile photo apis does not need database */
 		if (databaseMessage != null) {

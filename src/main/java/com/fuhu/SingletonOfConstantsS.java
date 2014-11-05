@@ -82,6 +82,5 @@ public class SingletonOfConstantsS {
 	/* Constants and variables for writing output data from Server to Client */
 	protected final static String STATUS = "status";
 	protected final static String STATUS_DESCRIPTION = "statusDescription";
-	protected final static String TIME_CREATED = "timeCreated";
 	protected final static String LAST_TIME_MODIFIED = "lastTimeModified";
 }

@@ -9,5 +9,5 @@ public interface BehaviorOfProcessSendResponse {
 	static SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
 	SingletonOfEndResponse endResponse = SingletonOfEndResponse.getInstance();
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
-	void execute(StatesOfServer state,Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client);
+	void execute(StatesOfServer state,Message<JsonObject> databaseMessage, HttpServerRequest bridge_between_server_and_client, String currentTime);
 }
