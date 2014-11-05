@@ -9,9 +9,9 @@ public class AssertionCheckerOfPerPackageAndUser implements BehaviorOfAssertionC
 			break;
 		case STATE_PER_PACKAGE_AND_USER_UPDATE:
 			break;
-		case STATE_PER_PACKAGE_AND_USER_GET:
+		case STATE_PER_PACKAGE_AND_USER_GET_1:
 			break;
-		case STATE_PER_PACKAGE_AND_USER_DELETE:
+		case STATE_PER_PACKAGE_AND_USER_DELETE_1:
 			break;
 		default:
 		}

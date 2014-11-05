@@ -9,9 +9,9 @@ public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker 
 			break;
 		case STATE_PER_PACKAGE_UPDATE:
 			break;
-		case STATE_PER_PACKAGE_GET:
+		case STATE_PER_PACKAGE_GET_1:
 			break;
-		case STATE_PER_PACKAGE_DELETE:
+		case STATE_PER_PACKAGE_DELETE_1:
 			break;
 		default:
 		}
