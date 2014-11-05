@@ -16,10 +16,10 @@ public class ProcessSendResponseOfDelete implements BehaviorOfProcessSendRespons
 		JsonObject response = new JsonObject();
 		switch (state) {
 		case STATE_PER_PACKAGE_DELETE:
-
-			break;
 		case STATE_PER_PACKAGE_AND_USER_DELETE:
-
+			response.putNumber("status", 0);
+			bridge_between_server_and_client.response().putHeader(cs.CONTENT_TYPE_K, cs.CONTENT_TYPE_JSON_V);
+			endResponse.endResponseWithJson(state, response, bridge_between_server_and_client);
 			break;
 		default:
 			break;

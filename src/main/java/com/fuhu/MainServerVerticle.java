@@ -30,8 +30,14 @@ import org.vertx.java.platform.Verticle;
  This is a simple Java verticle which receives `ping` messages on the event bus and sends back `pong` replies
  */
 public class MainServerVerticle extends Verticle {
-	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
+	SingletonOfQueryGenerator queryGenerator = SingletonOfQueryGenerator.getInstance();
+	SingletonOfUtility utility = SingletonOfUtility.getInstance();
+	SingletonOfSwitchesOfServer switchesOfServer = SingletonOfSwitchesOfServer.getInstance();
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
+	SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
+	SingletonOfEndResponse endResponse = SingletonOfEndResponse.getInstance();
+	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
+
 	ApiOfUpsert mApiOfPost;
 	ApiOfGet mApiOfGet;
 	ApiOfDelete mApiOfDelete;
@@ -52,6 +58,7 @@ public class MainServerVerticle extends Verticle {
 	@Override
 	public void start() {
 		deployMySqlModule();
+		utility.logger = container.logger();
 		RouteMatcher httpRouteMatcher = new RouteMatcher();
 		HttpServer httpServer = vertx.createHttpServer();
 		httpServer.requestHandler(httpRouteMatcher);

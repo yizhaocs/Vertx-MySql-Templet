@@ -33,15 +33,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
 				mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client);
-				JsonObject databaseMessageBody = databaseMessage.body();
-				JsonObject response = new JsonObject();
-				response.putString("status", "okay");
-				response.putObject("result", databaseMessageBody);
-				bridge_between_server_and_client.response().end(response.encodePrettily());
 			}
 		});
 	}
-	
-
-
 }

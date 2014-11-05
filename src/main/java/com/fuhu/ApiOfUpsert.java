@@ -27,7 +27,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					String streamKey = bridge_between_server_and_client.params().get("streamKey");
 					// StringBuilder binaryString = new StringBuilder(bytesToHex(curlBody.getBytes()));
 					String hex = utility.byteArrayToHexString(curlBody.getBytes());
-					final String currentTime = getCurServerTime();
+					final String currentTime = utility.getCurServerTime();
 					String[] insertColumnsWithoutUserKey = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
 					String[] valuesWithoutUserKey = { "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime, currentTime };
 					String[] insertColumnsWithUserKey = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4], cs.perPackageAndUser_TableColumns[5] };
@@ -46,11 +46,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						 */
 						@Override
 						public void handle(Message<JsonObject> databaseMessage) {
-							JsonObject databaseMessageBody = databaseMessage.body();
-							JsonObject response = new JsonObject();
-							response.putString("status", "okay");
-							response.putObject("status", databaseMessageBody);
-							bridge_between_server_and_client.response().end(response.encodePrettily());
+							mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client);
 						}
 					});
 				}

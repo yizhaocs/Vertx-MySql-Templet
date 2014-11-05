@@ -14,7 +14,7 @@ public class ApiOfGet extends SuperClassOfApis {
 		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfGet();
 	}
 
-	public void execute(StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
+	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? bridge_between_server_and_client.params().get("userKey") : null;
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
@@ -34,16 +34,7 @@ public class ApiOfGet extends SuperClassOfApis {
 			 */
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
-				JsonObject databaseMessageBody = databaseMessage.body();
-				JsonArray databaseMessageResults = databaseMessageBody.getArray("results");
-				JsonArray results = databaseMessageResults.get(0);
-				JsonArray binaryDataArray = results.get(0);
-				byte[] bytearr = new byte[binaryDataArray.size()];
-				for (int i = 0; i < binaryDataArray.size(); i++) {
-					bytearr[i] = binaryDataArray.get(i);
-				}
-				utility.byteArrayToFile(bytearr);
-				bridge_between_server_and_client.response().end(new Buffer().appendBytes(bytearr));
+				mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client);
 			}
 		});
 	}

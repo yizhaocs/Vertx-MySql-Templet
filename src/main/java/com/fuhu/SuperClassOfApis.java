@@ -1,16 +1,12 @@
 package com.fuhu;
 
-public class SuperClassOfApis extends MainServerVerticle {
-	SingletonOfQueryGenerator queryGenerator = SingletonOfQueryGenerator.getInstance();
-	SingletonOfUtility utility = SingletonOfUtility.getInstance();
-	protected String getCurServerTime() {
-		long TIME = System.currentTimeMillis();
-		String TIME_STRING = String.valueOf(TIME);
-		String TS = TIME_STRING.substring(0, TIME_STRING.length() - 3);
-		return TS;
-	}
+import org.vertx.java.core.http.HttpServerRequest;
+import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.core.logging.Logger;
 
-	protected String generateUuid() {
-		return java.util.UUID.randomUUID().toString();
-	}
+import scala.xml.Utility;
+
+public class SuperClassOfApis extends MainServerVerticle {
+
+	
 }
