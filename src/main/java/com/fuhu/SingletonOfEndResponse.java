@@ -43,10 +43,10 @@ public class SingletonOfEndResponse {
 	protected boolean databaseErrorResponse(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client, JsonObject databaseMessageBody) {
 		if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR)) {
 			if (switchesOfServer.isStatusDescriptionSwitch()) {
-				response.putString(cs.STATUS, APIStatusEnum.databaseError.getStatusCode()).putString(cs.STATUS_DESCRIPTION, databaseMessageBody.getString(cs.DB_MESSAGE));
+				response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode()).putString(cs.STATUS_DESCRIPTION, databaseMessageBody.getString(cs.DB_MESSAGE));
 				endResponseWithJson(state, response, bridge_between_server_and_client);
 			} else {
-				response.putString(cs.STATUS, APIStatusEnum.databaseError.getStatusCode());
+				response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode());
 				endResponseWithJson(state, response, bridge_between_server_and_client);
 			}
 			return true;

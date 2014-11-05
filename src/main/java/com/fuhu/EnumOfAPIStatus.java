@@ -6,7 +6,7 @@ import java.util.Map;
 
 // Reference: https://confluence.fuhu.org/display/FOA/Create+User+API+3.0?src=contextnavpagetreemode#CreateUserAPI3.0-POST/usermanagement/v3/user.1
 // Reference: https://confluence.fuhu.org/display/FOA/Fuhu+API+Error+Codes?src=contextnavpagetreemode
-public enum APIStatusEnum {
+public enum EnumOfAPIStatus {
 
 	ok														("0", 		"Success"),
 	unknownError											("1", 		"Unknown Error"),
@@ -124,24 +124,24 @@ public enum APIStatusEnum {
 	
 	
 	
-	protected static Map<String, APIStatusEnum> statusToEnumMap = null;
+	protected static Map<String, EnumOfAPIStatus> statusToEnumMap = null;
 	
 	protected static void initMapping() {
 		if (statusToEnumMap == null) {
-			statusToEnumMap = new HashMap<String, APIStatusEnum>();
+			statusToEnumMap = new HashMap<String, EnumOfAPIStatus>();
 			
-			for (APIStatusEnum status : APIStatusEnum.values()) {
+			for (EnumOfAPIStatus status : EnumOfAPIStatus.values()) {
 				statusToEnumMap.put(status.getStatusCode(), status);
 			}
 		}
 	}
 	
-	public static APIStatusEnum statusCodeToEnum(String statusCode) {
+	public static EnumOfAPIStatus statusCodeToEnum(String statusCode) {
 		
 		try {
 			initMapping();
 			
-			APIStatusEnum statusEnum = statusToEnumMap.get(statusCode); 
+			EnumOfAPIStatus statusEnum = statusToEnumMap.get(statusCode); 
 					
 			if (statusEnum != null)
 				return statusEnum;
@@ -156,7 +156,7 @@ public enum APIStatusEnum {
 		return unknownError;
 	}
 	
-	public static APIStatusEnum translateFoozKidsErrorCodeToNabiGoStatusCode(Number error_code) {
+	public static EnumOfAPIStatus translateFoozKidsErrorCodeToNabiGoStatusCode(Number error_code) {
 
 		try {
 			switch (error_code.intValue()) {
@@ -224,7 +224,7 @@ public enum APIStatusEnum {
 	}
 	*/
 	
-	APIStatusEnum(String statusCode, String desc) {
+	EnumOfAPIStatus(String statusCode, String desc) {
 		this.statusCode = statusCode;
 		this.desc = desc;
 //		this.errorClass = "";
