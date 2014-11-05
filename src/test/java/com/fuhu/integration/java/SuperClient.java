@@ -34,7 +34,6 @@ public class SuperClient extends MainClientVerticle {
 	protected static JsonObject currentServerResponseInJsonFormat;
 	/**/
 	protected static int statusCode = 0;
-	
 
 	protected void sendRequest(StatesOfClient state) {
 		resetState();
@@ -95,7 +94,7 @@ public class SuperClient extends MainClientVerticle {
 
 			try {
 				headersSetUp();
-				jsonBodySetUp();
+				sendRequest();
 			} catch (Exception e) {
 
 			}
@@ -119,8 +118,16 @@ public class SuperClient extends MainClientVerticle {
 
 	}
 
-	private void jsonBodySetUp() {
-		requestSendFromClienttoServer.end();
+	private void sendRequest() {
+		boolean a = getState().equals(StatesOfClient.STATE_PER_PACKAGE_INSERT);
+		boolean b = getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE);
+		boolean c = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_INSERT);
+		boolean d = getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE);
+		if (a || b || c || d) {
+			requestSendFromClienttoServer.end(BehaviorOfCurlCommandsSetter.currentDataSendToServer);
+		}else{
+			requestSendFromClienttoServer.end();
+		}
 	}
 
 	protected static void resetState() {
@@ -135,8 +142,8 @@ public class SuperClient extends MainClientVerticle {
 		return curState;
 	}
 
-	private void addDelayBetweenInsertAndUpdate(){
-		if(getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE)||getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE)){
+	private void addDelayBetweenInsertAndUpdate() {
+		if (getState().equals(StatesOfClient.STATE_PER_PACKAGE_UPDATE) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_UPDATE)) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

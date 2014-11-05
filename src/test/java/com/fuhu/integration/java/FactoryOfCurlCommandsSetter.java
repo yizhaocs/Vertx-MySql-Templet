@@ -4,7 +4,7 @@ public class FactoryOfCurlCommandsSetter {
 	public BehaviorOfCurlCommandsSetter createSetter(StatesOfClient state) {
 		BehaviorOfCurlCommandsSetter ccs = null;
 		if (state.toString().indexOf("USER") >= 0) {
-			ccs = new CurlCommandsSetterOfPerPackageAndUser();
+			ccs = new CurlCommandsSetterOfPerPackage();
 		} else  {
 			ccs = new CurlCommandsSetterOfPerPackage();
 		}
