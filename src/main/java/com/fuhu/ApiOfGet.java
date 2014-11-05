@@ -9,9 +9,9 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
-	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
+	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
 	public ApiOfGet() {
-		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfGet();
+		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfGet();
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
@@ -33,8 +33,19 @@ public class ApiOfGet extends SuperClassOfApis {
 			 * This handler recieves response from MySql DBMS
 			 */
 			@Override
-			public void handle(Message<JsonObject> databaseMessage) {
-				mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client, null);
+			public void handle(Message<JsonObject> databaseMessage) {				
+				JsonObject databaseMessageBody = null;
+				if(databaseMessage == null){
+					
+				}else{
+					databaseMessageBody = databaseMessage.body();
+					pmfs.printDatabaseMessage(state, databaseMessageBody);
+					if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
+						mBehaviorOfProcessSendResponse.execute(state, databaseMessageBody, bridge_between_server_and_client, null);
+					} else {
+
+					}
+				}
 			}
 		});
 	}

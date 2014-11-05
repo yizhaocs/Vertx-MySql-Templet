@@ -8,10 +8,10 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfUpsert extends SuperClassOfApis {
-	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
+	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
 
 	public ApiOfUpsert() {
-		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfUpsert();
+		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfUpsert();
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
@@ -46,7 +46,18 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						 */
 						@Override
 						public void handle(Message<JsonObject> databaseMessage) {
-							mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client,currentTime);
+							JsonObject databaseMessageBody = null;
+							if (databaseMessage == null) {
+
+							} else {
+								databaseMessageBody = databaseMessage.body();
+
+								if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
+									mBehaviorOfProcessSendResponse.execute(state, databaseMessageBody, bridge_between_server_and_client, currentTime);
+								} else {
+
+								}
+							}
 						}
 					});
 				}

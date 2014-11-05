@@ -7,18 +7,19 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfDelete extends SuperClassOfApis {
-	private BehaviorOfProcessSendResponse mBehaviorOfProcessSendResponse = null;
+	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
+
 	public ApiOfDelete() {
-		mBehaviorOfProcessSendResponse = new ProcessSendResponseOfDelete();
+		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfDelete();
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE) ? bridge_between_server_and_client.params().get("userKey") : null;
 		String packageName = bridge_between_server_and_client.params().get("packageName");
 		String streamKey = bridge_between_server_and_client.params().get("streamKey");
-		
+
 		String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
-		String[] whereClauseValues = {state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE)? "'" + userKey + "'" :"'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
+		String[] whereClauseValues = { state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE) ? "'" + userKey + "'" : "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
 		String queryResult = queryGenerator.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
 
 		System.out.println("query:" + queryResult);
@@ -32,7 +33,17 @@ public class ApiOfDelete extends SuperClassOfApis {
 			 */
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
-				mBehaviorOfProcessSendResponse.execute(state, databaseMessage, bridge_between_server_and_client, null);
+				JsonObject databaseMessageBody = null;
+				if (databaseMessage != null) {
+					databaseMessageBody = databaseMessage.body();
+					pmfs.printDatabaseMessage(state, databaseMessageBody);
+				}
+				if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
+					mBehaviorOfProcessSendResponse.execute(state, databaseMessageBody, bridge_between_server_and_client, null);
+				} else {
+
+				}
+
 			}
 		});
 	}
