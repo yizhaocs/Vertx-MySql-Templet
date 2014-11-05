@@ -9,8 +9,11 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfUpsert extends SuperClassOfApis {
 	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
+	private JsonObject response;
 
 	public ApiOfUpsert() {
+		response = new JsonObject();
+		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
 		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfUpsert();
 	}
 
@@ -48,14 +51,13 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						public void handle(Message<JsonObject> databaseMessage) {
 							JsonObject databaseMessageBody = null;
 							if (databaseMessage == null) {
-
+								endResponse.endResponseWithDatabaseError(state, response, bridge_between_server_and_client, databaseMessageBody);
 							} else {
 								databaseMessageBody = databaseMessage.body();
-
 								if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
-									mBehaviorOfProcessSendResponse.execute(state, databaseMessageBody, bridge_between_server_and_client, currentTime);
+									mBehaviorOfProcessSendResponse.execute(state, response, databaseMessageBody, bridge_between_server_and_client, currentTime);
 								} else {
-
+									endResponse.endResponseWithDatabaseError(state, response, bridge_between_server_and_client, databaseMessageBody);
 								}
 							}
 						}

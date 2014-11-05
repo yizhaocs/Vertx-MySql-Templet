@@ -24,7 +24,7 @@ public class SingletonOfEndResponse {
 	SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
 
 	/* Ending HTTP response for sendUnknownErrorResponse case */
-	protected void sendUnknownErrorResponse(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client) {
+	protected void endResponseWithUnknownError(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client) {
 		response.putString(cs.STATUS, cs.UNKNOWN_ERROR).putString(cs.STATUS_DESCRIPTION, cs.UNKNOWN_ERROR_DESC);
 		endResponseWithJson(state, response, bridge_between_server_and_client);
 	}
@@ -40,18 +40,14 @@ public class SingletonOfEndResponse {
 	}
 
 	/* Ending HTTP response for database error response case */
-	protected boolean databaseErrorResponse(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client, JsonObject databaseMessageBody) {
-		if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR)) {
-			if (switchesOfServer.isStatusDescriptionSwitch()) {
-				response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode()).putString(cs.STATUS_DESCRIPTION, databaseMessageBody.getString(cs.DB_MESSAGE));
-				endResponseWithJson(state, response, bridge_between_server_and_client);
-			} else {
-				response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode());
-				endResponseWithJson(state, response, bridge_between_server_and_client);
-			}
-			return true;
+	protected void endResponseWithDatabaseError(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client, JsonObject databaseMessageBody) {
+		if (switchesOfServer.isStatusDescriptionSwitch()) {
+			response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode()).putString(cs.STATUS_DESCRIPTION, databaseMessageBody.getString(cs.DB_MESSAGE));
+			endResponseWithJson(state, response, bridge_between_server_and_client);
+		} else {
+			response.putString(cs.STATUS, EnumOfAPIStatus.databaseError.getStatusCode());
+			endResponseWithJson(state, response, bridge_between_server_and_client);
 		}
-		return false;
 	}
 
 	protected void endResponseWithBinaryData(StatesOfServer state, Buffer response, HttpServerRequest bridge_between_server_and_client) {

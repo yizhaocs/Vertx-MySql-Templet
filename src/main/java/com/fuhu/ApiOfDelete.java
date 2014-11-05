@@ -8,8 +8,10 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfDelete extends SuperClassOfApis {
 	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
-
+	private JsonObject response;
 	public ApiOfDelete() {
+		response = new JsonObject();
+		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
 		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfDelete();
 	}
 
@@ -34,16 +36,17 @@ public class ApiOfDelete extends SuperClassOfApis {
 			@Override
 			public void handle(Message<JsonObject> databaseMessage) {
 				JsonObject databaseMessageBody = null;
-				if (databaseMessage != null) {
+				if(databaseMessage == null){
+					endResponse.endResponseWithDatabaseError(state, response, bridge_between_server_and_client, databaseMessageBody);
+				}else{
 					databaseMessageBody = databaseMessage.body();
 					pmfs.printDatabaseMessage(state, databaseMessageBody);
+					if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
+						mBehaviorOfProcessSendResponse.execute(state,response, databaseMessageBody, bridge_between_server_and_client, null);
+					} else {
+						endResponse.endResponseWithDatabaseError(state, response, bridge_between_server_and_client, databaseMessageBody);
+					}
 				}
-				if (databaseMessageBody.getString(cs.DB_STATUS).equals(cs.DB_ERROR) == false) {
-					mBehaviorOfProcessSendResponse.execute(state, databaseMessageBody, bridge_between_server_and_client, null);
-				} else {
-
-				}
-
 			}
 		});
 	}

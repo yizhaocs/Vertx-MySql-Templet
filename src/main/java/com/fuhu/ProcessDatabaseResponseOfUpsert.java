@@ -6,8 +6,7 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ProcessDatabaseResponseOfUpsert implements BehaviorOfProcessDatabaseResponse {
 	@Override
-	public void execute(StatesOfServer state, JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
-		JsonObject response = new JsonObject();
+	public void execute(StatesOfServer state, JsonObject response,JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		switch (state) {
 		case STATE_PER_PACKAGE_UPSERT:
 		case STATE_PER_PACKAGE_AND_USER_UPSERT:

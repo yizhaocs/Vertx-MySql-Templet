@@ -80,6 +80,8 @@ public class SingletonOfConstantsS {
 	protected final static String DB_MESSAGE = "message";
 	
 	/* Constants and variables for writing output data from Server to Client */
+	protected final static String NABI_CLIENT_DATA_BACKUP_APIVersion_K = "NabiClientDataBackupAPIVersion";
+	protected final static String NABI_CLIENT_DATA_BACKUP_APIVersion_V = "1.0";
 	protected final static String STATUS = "status";
 	protected final static String STATUS_DESCRIPTION = "statusDescription";
 	protected final static String LAST_TIME_MODIFIED = "lastTimeModified";

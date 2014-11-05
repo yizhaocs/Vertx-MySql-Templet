@@ -8,7 +8,7 @@ import org.vertx.java.core.json.JsonObject;
 
 public class ProcessDatabaseResponseOfGet implements BehaviorOfProcessDatabaseResponse {
 	@Override
-	public void execute(StatesOfServer state,  JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
+	public void execute(StatesOfServer state,  JsonObject response,JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		switch (state) {
 		case STATE_PER_PACKAGE_GET:
 		case STATE_PER_PACKAGE_AND_USER_GET:
