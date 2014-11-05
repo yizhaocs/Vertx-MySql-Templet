@@ -66,10 +66,7 @@ public class ApiOfUpsert extends SuperClassOfApis {
 			});
 		} catch (Exception e) {
 			container.logger().error(e.getStackTrace());
-			JsonObject response = new JsonObject();
-			response.putString("status", "1");
-			response.putString("statusDescription", "Unknown Error");
-			bridge_between_server_and_client.response().end(response.encodePrettily());
+			endResponse.endResponseWithUnknownError(state, response, bridge_between_server_and_client);
 		} finally {
 
 		}
