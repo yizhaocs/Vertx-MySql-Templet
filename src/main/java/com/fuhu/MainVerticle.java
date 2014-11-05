@@ -42,8 +42,8 @@ public class MainVerticle extends Verticle {
 	private void deployMySqlModule() {
 		container.deployModule("io.vertx~mod-mysql-postgresql_2.10~0.3.1", mSingletonOfServerConfigSetup.getDBconfig(), new AsyncResultHandler<String>() {
 			public void handle(AsyncResult<String> asyncResult) {
-				System.out.println("MySQL/Postgres module deployment ID: " + asyncResult.result());
-				System.out.println("MySQL/Postgres module deployment failed: " + asyncResult.failed());
+				System.out.println("Server MySQL/Postgres module deployment ID: " + asyncResult.result());
+				System.out.println("Server MySQL/Postgres module deployment failed: " + asyncResult.failed());
 				if (asyncResult.failed()) {
 					System.out.println("MySQL/Postgres module deployment asyncResult.cause printStackTrace: ");
 					asyncResult.cause().printStackTrace();
