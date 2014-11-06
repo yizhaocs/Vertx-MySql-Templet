@@ -127,7 +127,15 @@ public class SuperClient extends MainClientVerticle {
 	}
 
 	private void headersSetUp() {
-
+		requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+		if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+			requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+		} else if (getState().toString().indexOf("GET") >= 0) {
+			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+		} else if (getState().toString().indexOf("DELETE") >= 0) {
+			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+		}
 	}
 
 	private void sendRequest() {

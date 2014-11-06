@@ -52,7 +52,8 @@ public class SingletonOfConstantsT {
 	
 	/* Constants of Headers */
 	protected final String ACCEPT_K = "Accept";
-	protected final String ACCEPT_V = "binary/octet-stream";
+	protected final String ACCEPT_BINARY_DATA_V = "binary/octet-stream";
+	protected final String ACCEPT_JSON_V = "application/json";
 	protected final String APIKEY_K = "APIKEY";
 	protected final String APIKEY_V = "1234567890abcdef";
 	protected final String CONTENT_TYPE_K = "Content-Type";
