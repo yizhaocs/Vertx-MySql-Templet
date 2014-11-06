@@ -1,5 +1,8 @@
 package com.fuhu.integration.java;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SingletonOfConstantsT {
 	/* Setup for Singleton pattern */
 	private static SingletonOfConstantsT instance = null;
@@ -13,6 +16,15 @@ public class SingletonOfConstantsT {
 			instance = new SingletonOfConstantsT();
 		}
 		return instance;
+	}
+	
+	/* Constant for state-map */
+	protected final static Map<StatesOfClient, Boolean> mapStates;
+	static {
+		mapStates = new HashMap<StatesOfClient, Boolean>();
+		for (StatesOfClient s : StatesOfClient.values()) {
+			mapStates.put(s, false);
+		}
 	}
 
 	/* Constants for HTTP request methods */
