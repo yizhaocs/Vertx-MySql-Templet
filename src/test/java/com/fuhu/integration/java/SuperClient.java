@@ -33,7 +33,7 @@ public class SuperClient extends MainClientVerticle {
 	/* Variables for current data */
 	protected JsonObject currentServerResponseInJsonFormat;
 	/**/
-	protected static int statusCode = 0;
+	protected int statusCode = 0;
 	protected static String lastTimeModified;
 	
 	protected void sendRequest(StatesOfClient state) {
@@ -75,7 +75,7 @@ public class SuperClient extends MainClientVerticle {
 
 								}
 								mAssertionChecker = mAssertionCheckerFactory.createChecker(getState());
-								mAssertionChecker.execute(getState(),currentServerResponseInJsonFormat);
+								mAssertionChecker.execute(getState(),currentServerResponseInJsonFormat, statusCode);
 
 							} catch (Exception e) {
 								e.printStackTrace();

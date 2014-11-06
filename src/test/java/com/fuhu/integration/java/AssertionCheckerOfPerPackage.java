@@ -8,59 +8,69 @@ import org.vertx.java.core.json.JsonObject;
 public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker {
 
 	@Override
-	public void execute(StatesOfClient state, JsonObject currentServerResponseInJsonFormat) {
+	public void execute(StatesOfClient state, JsonObject currentServerResponseInJsonFormat, int statusCode) {
 		switch (state) {
 		/* Check for insert is correct */
 		case STATE_PER_PACKAGE_INSERT_1:
 		case STATE_PER_PACKAGE_AND_USER_INSERT_1:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			assetionsForGeneral(currentServerResponseInJsonFormat);
 			assertNotNull(currentServerResponseInJsonFormat.getString(ct.LAST_TIME_MODIFIED));
 			break;
 		case STATE_PER_PACKAGE_GET_1:
 		case STATE_PER_PACKAGE_AND_USER_GET_1:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			break;
 		/* Check for get is correct */
 		case STATE_PER_PACKAGE_GET_2:
 		case STATE_PER_PACKAGE_AND_USER_GET_2:
 			ct.mapStates.put(state, true);
+			assertEquals(404, statusCode);
 			break;
 		/* Check for delete is correct */
 		case STATE_PER_PACKAGE_DELETE_1:
 		case STATE_PER_PACKAGE_AND_USER_DELETE_1:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			assetionsForGeneral(currentServerResponseInJsonFormat);
 			break;
 		case STATE_PER_PACKAGE_GET_3:
 		case STATE_PER_PACKAGE_AND_USER_GET_3:
 			ct.mapStates.put(state, true);
+			assertEquals(404, statusCode);
 			break;
 		/* Check for update is correct */
 		case STATE_PER_PACKAGE_INSERT_2:
 		case STATE_PER_PACKAGE_AND_USER_INSERT_2:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			assetionsForGeneral(currentServerResponseInJsonFormat);
 			assertNotNull(currentServerResponseInJsonFormat.getString(ct.LAST_TIME_MODIFIED));
 			break;
 		case STATE_PER_PACKAGE_UPDATE:
 		case STATE_PER_PACKAGE_AND_USER_UPDATE:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			assetionsForGeneral(currentServerResponseInJsonFormat);
 			break;
 		case STATE_PER_PACKAGE_GET_4:
 		case STATE_PER_PACKAGE_AND_USER_GET_4:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			break;
 		/* Clean up everything then check for all data are cleaned */
 		case STATE_PER_PACKAGE_DELETE_2:
 		case STATE_PER_PACKAGE_AND_USER_DELETE_2:
 			ct.mapStates.put(state, true);
+			assertEquals(200, statusCode);
 			assetionsForGeneral(currentServerResponseInJsonFormat);
 			break;
 		case STATE_PER_PACKAGE_GET_5:
 		case STATE_PER_PACKAGE_AND_USER_GET_5:
 			ct.mapStates.put(state, true);
+			assertEquals(404, statusCode);
 			break;
 		default:
 		}

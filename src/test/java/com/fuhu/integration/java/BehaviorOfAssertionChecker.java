@@ -5,6 +5,6 @@ import org.vertx.java.core.json.JsonObject;
 public interface BehaviorOfAssertionChecker {
 	public SingletonOfConstantsT ct = SingletonOfConstantsT.getInstance();
 
-	public void execute(StatesOfClient state,JsonObject currentServerResponseInJsonFormat);
+	public void execute(StatesOfClient state,JsonObject currentServerResponseInJsonFormat, int statusCode);
 
 }
