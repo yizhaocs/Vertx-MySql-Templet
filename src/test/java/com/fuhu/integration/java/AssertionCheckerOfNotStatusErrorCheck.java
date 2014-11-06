@@ -6,7 +6,7 @@ import static org.vertx.testtools.VertxAssert.assertNotNull;
 import org.vertx.java.core.buffer.Buffer;
 import org.vertx.java.core.json.JsonObject;
 
-public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker {
+public class AssertionCheckerOfNotStatusErrorCheck implements BehaviorOfAssertionChecker {
 
 	@Override
 	public void execute(StatesOfClient state, JsonObject currentServerResponseInJsonFormat, Buffer currentServerResponseInBinaryStreamFormat, int statusCode) {

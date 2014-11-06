@@ -127,15 +127,80 @@ public class SuperClient extends MainClientVerticle {
 	}
 
 	private void headersSetUp() {
-		requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
-		if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
-			requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
-			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
-		} else if (getState().toString().indexOf("GET") >= 0) {
-			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
-		} else if (getState().toString().indexOf("DELETE") >= 0) {
-			requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+		if (getState().toString().indexOf("STATUS_CHECK") < 0) {
+			requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+			if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+				requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+			} else if (getState().toString().indexOf("GET") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+			} else if (getState().toString().indexOf("DELETE") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+			}
+		} else {
+			if (getState().toString().indexOf("APIKEY_MISSING") >= 0) {
+				// requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				}
+			} else if (getState().toString().indexOf("APIKEY_INVALID") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_INVALID_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				}
+			} else if (getState().toString().indexOf("ACCEPT_MISSING") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+					// requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					// requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					// requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				}
+			} else if (getState().toString().indexOf("ACCEPT_INVALID") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_INVALID_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_INVALID_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_INVALID_V);
+				}
+			} else if (getState().toString().indexOf("CONTENTTYPE_MISSING") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					// requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_V);
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				}
+			} else if (getState().toString().indexOf("CONTENTTYPE_INVALID") >= 0) {
+				requestSendFromClienttoServer.putHeader(cts.APIKEY_K, cts.APIKEY_V);
+				if (getState().toString().indexOf("INSERT") >= 0 || getState().toString().indexOf("UPDATE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.CONTENT_TYPE_K, cts.CONTENT_TYPE_BINARY_DATA_INVALID_V);
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				} else if (getState().toString().indexOf("GET") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_BINARY_DATA_V);
+				} else if (getState().toString().indexOf("DELETE") >= 0) {
+					requestSendFromClienttoServer.putHeader(cts.ACCEPT_K, cts.ACCEPT_JSON_V);
+				}
+			}
 		}
+
 	}
 
 	private void sendRequest() {

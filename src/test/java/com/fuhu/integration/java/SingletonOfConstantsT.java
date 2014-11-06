@@ -51,19 +51,24 @@ public class SingletonOfConstantsT {
 	protected final Buffer TEST_BINARYDATE_UPDATE = new Buffer(byteArray_update);
 	
 	/* Constants of Headers */
+	protected final String APIKEY_K = "APIKEY";
+	protected final String APIKEY_V = "1234567890abcdef";
+	protected final String APIKEY_INVALID_V = "1234567890abcdeg";
 	protected final String ACCEPT_K = "Accept";
 	protected final String ACCEPT_BINARY_DATA_V = "binary/octet-stream";
 	protected final String ACCEPT_JSON_V = "application/json";
-	protected final String APIKEY_K = "APIKEY";
-	protected final String APIKEY_V = "1234567890abcdef";
+	protected final String ACCEPT_BINARY_DATA_INVALID_V = "binary/octet-streaa";
+	protected final String ACCEPT_JSON_INVALID_V = "application/jsoa";
 	protected final String CONTENT_TYPE_K = "Content-Type";
 	protected final String CONTENT_TYPE_BINARY_DATA_V = "binary/octet-stream";
 	protected final String CONTENT_TYPE_JSON_V = "application/json";
+	protected final String CONTENT_TYPE_BINARY_DATA_INVALID_V = "binary/octet-streaa";
+	protected final String CONTENT_TYPE_JSON_INVALID_V = "application/jsoa";
 	/* Constrants for status codes */
 	protected final static String OK = EnumOfAPIStatus.ok.getStatusCode();
 	protected final static String UNKNOWN_ERROR = EnumOfAPIStatus.unknownError.getStatusCode();
-	protected final static String API_KEY_MISSING = EnumOfAPIStatus.apiKeyMissing.getStatusCode();
-	protected final static String API_KEY_INVALID = EnumOfAPIStatus.apiKeyInvalid.getStatusCode();
+	protected final static String MISSING_API_KEY = EnumOfAPIStatus.apiKeyMissing.getStatusCode();
+	protected final static String INVALID_API_KEY = EnumOfAPIStatus.apiKeyInvalid.getStatusCode();
 	protected final static String MISSING_ACCEPT_HEADER = EnumOfAPIStatus.missingAcceptHeader.getStatusCode();
 	protected final static String INVALID_ACCEPT_HEADER = EnumOfAPIStatus.invalidAcceptHeader.getStatusCode();
 	protected final static String MISSING_SESSION_KEY = EnumOfAPIStatus.missingSessionKey.getStatusCode();

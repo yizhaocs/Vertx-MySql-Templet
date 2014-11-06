@@ -67,7 +67,8 @@ public class SingletonOfHeaderChecker {
 	protected boolean without_apiKey_contentType_accept_error(StatesOfServer state, JsonObject response, HttpServerRequest curlRequest, Map<String, Boolean> containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map,
 			Map<String, String> valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map) {
 		return (APIKeyHeaderChecker(state, response, curlRequest, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)
-				&& ContentTypeHeaderChecker(state, response, curlRequest, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map) && acceptHeaderChecker(state, response, curlRequest,
+				&& ContentTypeHeaderChecker(state, response, curlRequest, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)
+				&& acceptHeaderChecker(state, response, curlRequest,
 					containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map));
 	}
 

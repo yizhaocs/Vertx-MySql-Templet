@@ -3,10 +3,10 @@ package com.fuhu.integration.java;
 public class FactoryOfAssertionChecker {
 	public BehaviorOfAssertionChecker createChecker(StatesOfClient state) {
 		BehaviorOfAssertionChecker f = null;
-		if (state.toString().indexOf("USER") >= 0) {
-			f = new AssertionCheckerOfPerPackage();
+		if (state.toString().indexOf("STATUS_CHECK") < 0) {
+			f = new AssertionCheckerOfNotStatusErrorCheck();
 		} else {
-			f = new AssertionCheckerOfPerPackage();
+			f = new AssertionCheckerOfStatusErrorCheck();
 		}
 		return f;
 	}
