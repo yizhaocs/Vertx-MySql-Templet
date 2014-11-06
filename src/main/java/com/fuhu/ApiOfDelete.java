@@ -25,8 +25,9 @@ public class ApiOfDelete extends SuperClassOfApis {
 			String streamKey = bridge_between_server_and_client.params().get("streamKey");
 
 			String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2] };
+			String[] whereClauseOperator = { "=", "=", "=" };
 			String[] whereClauseValues = { state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE) ? "'" + userKey + "'" : "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'" };
-			String queryResult = queryGenerator.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
+			String queryResult = queryGenerator.delete(cs.tableName, whereClauseCoulmns, whereClauseOperator,whereClauseValues);
 
 			System.out.println("query:" + queryResult);
 			vertx.eventBus().send("backend", utility.rawCommandJsonGenerator(queryResult), new Handler<Message<JsonObject>>() {

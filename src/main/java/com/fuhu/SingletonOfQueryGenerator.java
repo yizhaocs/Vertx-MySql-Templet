@@ -64,19 +64,19 @@ public class SingletonOfQueryGenerator {
 		return sb.toString();
 	}
 
-	protected String select(String a1, String table, String[] whereClauseCoulmns, String[] whereClauseValues) {
+	protected String select(String a1, String table, String[] whereClauseCoulmns, String[] whereClauseOperator, String[] whereClauseValues) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
 		sb.append(a1);
 		sb.append(" FROM ");
 		sb.append(table);
 		sb.append(" WHERE ");
-		sb.append(whereClauseBuilder(whereClauseCoulmns, whereClauseValues));
+		sb.append(whereClauseBuilder(whereClauseCoulmns, whereClauseOperator, whereClauseValues));
 		sb.append(";");
 		return sb.toString();
 	}
 
-	protected String update(String table, String[] updateCoulmns, String[] updateValues, String[] whereClauseCoulmns, String[] whereClauseValues) {
+	protected String update(String table, String[] updateCoulmns, String[] updateValues, String[] whereClauseCoulmns, String[]  whereClauseOperator,String[] whereClauseValues) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE ");
 		sb.append(table);
@@ -90,26 +90,26 @@ public class SingletonOfQueryGenerator {
 			}
 		}
 		sb.append(" WHERE ");
-		sb.append(whereClauseBuilder(whereClauseCoulmns, whereClauseValues));
+		sb.append(whereClauseBuilder(whereClauseCoulmns,whereClauseOperator, whereClauseValues));
 		sb.append(";");
 		return sb.toString();
 	}
 	
-	protected String delete(String table, String[] whereClauseCoulmns, String[] whereClauseValues) {
+	protected String delete(String table, String[] whereClauseCoulmns, String[] whereClauseOperator,String[] whereClauseValues) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("DELETE FROM ");
 		sb.append(table);
 		sb.append(" WHERE ");
-		sb.append(whereClauseBuilder(whereClauseCoulmns, whereClauseValues));
+		sb.append(whereClauseBuilder(whereClauseCoulmns, whereClauseOperator,whereClauseValues));
 		sb.append(";");
 		return sb.toString();
 	}
 
-	protected String whereClauseBuilder(String[] whereClauseCoulmns, String[] whereClauseValues) {
+	protected String whereClauseBuilder(String[] whereClauseCoulmns,String[] whereClauseOperator, String[] whereClauseValues) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < whereClauseCoulmns.length; i++) {
 			sb.append(whereClauseCoulmns[i]);
-			sb.append("=");
+			sb.append(whereClauseOperator[i]);
 			sb.append(whereClauseValues[i]);
 			if (i + 1 < whereClauseCoulmns.length) {
 				sb.append(" AND ");
