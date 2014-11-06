@@ -9,7 +9,7 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
-	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
+	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
 
 	public ApiOfGet() {

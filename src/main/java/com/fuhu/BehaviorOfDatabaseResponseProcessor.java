@@ -4,7 +4,7 @@ import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
-public interface BehaviorOfProcessDatabaseResponse {
+public interface BehaviorOfDatabaseResponseProcessor {
 	static SingletonOfConstantsS css = SingletonOfConstantsS.getInstance();
 	static SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
 	SingletonOfEndResponse endResponse = SingletonOfEndResponse.getInstance();

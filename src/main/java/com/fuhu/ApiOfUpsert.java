@@ -8,7 +8,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfUpsert extends SuperClassOfApis {
-	private BehaviorOfProcessDatabaseResponse mBehaviorOfProcessSendResponse = null;
+	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
 
 	public ApiOfUpsert() {

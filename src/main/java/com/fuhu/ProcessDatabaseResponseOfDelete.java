@@ -4,7 +4,7 @@ import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
-public class ProcessDatabaseResponseOfDelete implements BehaviorOfProcessDatabaseResponse {
+public class ProcessDatabaseResponseOfDelete implements BehaviorOfDatabaseResponseProcessor {
 	@Override
 	public void execute(StatesOfServer state, JsonObject response,JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		switch (state) {
