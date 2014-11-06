@@ -32,10 +32,11 @@ public class SuperClient extends MainClientVerticle {
 
 	/* Variables for current data */
 	protected JsonObject currentServerResponseInJsonFormat;
+	protected Buffer currentServerResponseInBinaryStreamFormat;
 	/**/
 	protected int statusCode = 0;
 	protected static String lastTimeModified;
-	
+
 	protected void sendRequest(StatesOfClient state) {
 		resetState();
 		setState(state);
@@ -54,7 +55,7 @@ public class SuperClient extends MainClientVerticle {
 			pmfc.printCurrentRequestAndPathInCurlCommand();
 			requestSendFromClienttoServer = client.request(BehaviorOfCurlCommandsSetter.currentRequest, BehaviorOfCurlCommandsSetter.currentPath, new Handler<HttpClientResponse>() {
 				/*
-				 * This handler recieves SerΩ©ver response
+				 * This handler recieves Server response
 				 */
 				@Override
 				public void handle(HttpClientResponse responseRecievedAtClientFromServer) {
@@ -68,14 +69,20 @@ public class SuperClient extends MainClientVerticle {
 						public void handle(Buffer body) {
 							try {
 								try {
-									pmfc.printMessageFromServer(body);
-									currentServerResponseInJsonFormat = new JsonObject(body.toString());
+									if (getState().equals(StatesOfClient.STATE_PER_PACKAGE_GET_1) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_GET_1) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_GET_2) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_GET_2)
+											|| getState().equals(StatesOfClient.STATE_PER_PACKAGE_GET_3) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_GET_3) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_GET_4)
+											|| getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_GET_4) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_GET_5) || getState().equals(StatesOfClient.STATE_PER_PACKAGE_AND_USER_GET_5)) {
+										currentServerResponseInBinaryStreamFormat = body;
+									} else {
+										pmfc.printMessageFromServer(body);
+										currentServerResponseInJsonFormat = new JsonObject(body.toString());
+									}
 									getDataFromDB();
 								} catch (Exception e) {
 
 								}
 								mAssertionChecker = mAssertionCheckerFactory.createChecker(getState());
-								mAssertionChecker.execute(getState(),currentServerResponseInJsonFormat, statusCode);
+								mAssertionChecker.execute(getState(), currentServerResponseInJsonFormat, currentServerResponseInBinaryStreamFormat, statusCode);
 
 							} catch (Exception e) {
 								e.printStackTrace();
