@@ -15,30 +15,27 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 		switch (state) {
 		case STATE_PER_PACKAGE_INSERT_1:
 		case STATE_PER_PACKAGE_INSERT_2:
-		case STATE_PER_PACKAGE_AND_USER_INSERT_1:
-		case STATE_PER_PACKAGE_AND_USER_INSERT_2:
 		case STATE_PER_PACKAGE_UPDATE:
-		case STATE_PER_PACKAGE_AND_USER_UPDATE:
 			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE;
 			dataSetup();
 			break;
-		case STATE_PER_PACKAGE_GET_1:
+
 		case STATE_PER_PACKAGE_GET_2:
+			currentRequest = ct.GET_REQUEST;
+			currentPath = ct.PATH_OF_PER_PACKAGE_GET + "1111111111";
+			currentDataSendToServer = null;
+			break;
+		case STATE_PER_PACKAGE_GET_1:
 		case STATE_PER_PACKAGE_GET_3:
 		case STATE_PER_PACKAGE_GET_4:
-		case STATE_PER_PACKAGE_AND_USER_GET_1:
-		case STATE_PER_PACKAGE_AND_USER_GET_2:
-		case STATE_PER_PACKAGE_AND_USER_GET_3:
-		case STATE_PER_PACKAGE_AND_USER_GET_4:
+		case STATE_PER_PACKAGE_GET_5:
 			currentRequest = ct.GET_REQUEST;
-			currentPath = ct.PATH_OF_PER_PACKAGE_GET;
+			currentPath = ct.PATH_OF_PER_PACKAGE_GET + "9999999999";
 			currentDataSendToServer = null;
 			break;
 		case STATE_PER_PACKAGE_DELETE_1:
 		case STATE_PER_PACKAGE_DELETE_2:
-		case STATE_PER_PACKAGE_AND_USER_DELETE_1:
-		case STATE_PER_PACKAGE_AND_USER_DELETE_2:
 			currentRequest = ct.DELETE_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE;
 			currentDataSendToServer = null;

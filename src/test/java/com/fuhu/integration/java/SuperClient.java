@@ -34,7 +34,8 @@ public class SuperClient extends MainClientVerticle {
 	protected static JsonObject currentServerResponseInJsonFormat;
 	/**/
 	protected static int statusCode = 0;
-
+	protected static String lastTimeModified;
+	
 	protected void sendRequest(StatesOfClient state) {
 		resetState();
 		setState(state);
@@ -109,6 +110,10 @@ public class SuperClient extends MainClientVerticle {
 
 	private void getDataFromDB() {
 		switch (getState()) {
+		case STATE_PER_PACKAGE_INSERT_1:
+		case STATE_PER_PACKAGE_AND_USER_INSERT_1:
+			lastTimeModified = currentServerResponseInJsonFormat.getString(lastTimeModified);
+			break;
 		default:
 			break;
 		}
