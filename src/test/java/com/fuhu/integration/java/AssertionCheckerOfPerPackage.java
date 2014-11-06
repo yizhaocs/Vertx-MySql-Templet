@@ -23,7 +23,7 @@ public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker 
 		case STATE_PER_PACKAGE_AND_USER_GET_1:
 			ct.mapStates.put(state, true);
 			assertEquals(200, statusCode);
-			assertEquals(ct.testBinaryData, currentServerResponseInBinaryStreamFormat);
+			assertEquals(ct.TEST_BINARYDATE_POST, currentServerResponseInBinaryStreamFormat);
 			break;
 		/* Check for get is correct */
 		case STATE_PER_PACKAGE_GET_2:
@@ -61,7 +61,7 @@ public class AssertionCheckerOfPerPackage implements BehaviorOfAssertionChecker 
 		case STATE_PER_PACKAGE_AND_USER_GET_4:
 			ct.mapStates.put(state, true);
 			assertEquals(200, statusCode);
-			assertEquals(ct.testBinaryData, currentServerResponseInBinaryStreamFormat);
+			assertEquals(ct.TEST_BINARYDATE_UPDATE, currentServerResponseInBinaryStreamFormat);
 			break;
 		/* Clean up everything then check for all data are cleaned */
 		case STATE_PER_PACKAGE_DELETE_2:

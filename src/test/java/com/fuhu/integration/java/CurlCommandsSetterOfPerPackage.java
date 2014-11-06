@@ -15,12 +15,15 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 		switch (state) {
 		case STATE_PER_PACKAGE_INSERT_1:
 		case STATE_PER_PACKAGE_INSERT_2:
+			currentRequest = ct.PUT_REQUEST;
+			currentPath = ct.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE;
+			currentDataSendToServer = ct.TEST_BINARYDATE_POST;
+			break;
 		case STATE_PER_PACKAGE_UPDATE:
 			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE;
-			currentDataSendToServer = ct.testBinaryData;
+			currentDataSendToServer = ct.TEST_BINARYDATE_UPDATE;
 			break;
-
 		case STATE_PER_PACKAGE_GET_2:
 			currentRequest = ct.GET_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_GET + "1111111111";

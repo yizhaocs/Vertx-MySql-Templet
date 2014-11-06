@@ -8,10 +8,14 @@ public class CurlCommandsSetterOfPerPackageAndUser extends BehaviorOfCurlCommand
 		switch (state) {
 		case STATE_PER_PACKAGE_AND_USER_INSERT_1:
 		case STATE_PER_PACKAGE_AND_USER_INSERT_2:
+			currentRequest = ct.PUT_REQUEST;
+			currentPath = ct.PATH_OF_PER_PACKAGE_AND_USER_UPSERT_AND_DELETE;
+			currentDataSendToServer = ct.TEST_BINARYDATE_POST;
+			break;
 		case STATE_PER_PACKAGE_AND_USER_UPDATE:
 			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_AND_USER_UPSERT_AND_DELETE;
-			currentDataSendToServer = ct.testBinaryData;
+			currentDataSendToServer = ct.TEST_BINARYDATE_UPDATE;
 			break;
 		case STATE_PER_PACKAGE_AND_USER_GET_2:
 			currentRequest = ct.GET_REQUEST;
