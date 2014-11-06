@@ -18,7 +18,7 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 		case STATE_PER_PACKAGE_UPDATE:
 			currentRequest = ct.PUT_REQUEST;
 			currentPath = ct.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE;
-			dataSetup();
+			currentDataSendToServer = ct.testBinaryData;
 			break;
 
 		case STATE_PER_PACKAGE_GET_2:
@@ -42,32 +42,6 @@ public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter
 			break;
 		default:
 			pmfc.printCurrentStateInfo();
-		}
-	}
-
-	private void dataSetup() {
-		byte[] byteArray = null;
-		FileInputStream in = null;
-		try {
-			in = new FileInputStream("src/test/resources/testing.png");
-			try {
-				byteArray = IOUtils.toByteArray(in);
-				currentDataSendToServer = new Buffer(byteArray);
-				System.out.println("Arrays.toString(IOUtils.toByteArray(imageInFile)):" + Arrays.toString(byteArray));
-				System.out.println("currentDataSendToServer:" + Arrays.toString(currentDataSendToServer.getBytes()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			System.out.println("Caught FileNotFoundException: " + e.getMessage());
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 }
