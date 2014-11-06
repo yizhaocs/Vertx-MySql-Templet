@@ -7,12 +7,14 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfDelete extends SuperClassOfApis {
+	private BehaviorOfQueryGenerator mBehaviorOfQueryGenerator = null;
 	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
 
 	public ApiOfDelete() {
 		response = new JsonObject();
 		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
+		mBehaviorOfQueryGenerator = new QueryGeneratorOfDelete();
 		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfDelete();
 	}
 
@@ -27,11 +29,7 @@ public class ApiOfDelete extends SuperClassOfApis {
 			String queryResult = queryGenerator.delete(cs.tableName, whereClauseCoulmns, whereClauseValues);
 
 			System.out.println("query:" + queryResult);
-			JsonObject rawCommandJson = new JsonObject();
-			rawCommandJson.putString("action", "raw");
-			rawCommandJson.putString("command", queryResult);
-			System.out.println("rawCommandJson:" + rawCommandJson.encodePrettily());
-			vertx.eventBus().send("backend", rawCommandJson, new Handler<Message<JsonObject>>() {
+			vertx.eventBus().send("backend", utility.rawCommandJsonGenerator(queryResult), new Handler<Message<JsonObject>>() {
 				/*
 				 * This handler recieves response from MySql DBMS
 				 */

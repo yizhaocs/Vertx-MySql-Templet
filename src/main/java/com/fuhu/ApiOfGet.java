@@ -9,12 +9,14 @@ import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
 public class ApiOfGet extends SuperClassOfApis {
+	private BehaviorOfQueryGenerator mBehaviorOfQueryGenerator = null;
 	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
 
 	public ApiOfGet() {
 		response = new JsonObject();
 		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
+		mBehaviorOfQueryGenerator = new QueryGeneratorOfGet();
 		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfGet();
 	}
 
@@ -29,11 +31,8 @@ public class ApiOfGet extends SuperClassOfApis {
 			String queryResult = queryGenerator.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseValues);
 
 			System.out.println("query:" + queryResult);
-			JsonObject rawCommandJson = new JsonObject();
-			rawCommandJson.putString("action", "raw");
-			rawCommandJson.putString("command", queryResult);
-			System.out.println("rawCommandJson:" + rawCommandJson.encodePrettily());
-			vertx.eventBus().send("backend", rawCommandJson, new Handler<Message<JsonObject>>() {
+
+			vertx.eventBus().send("backend", utility.rawCommandJsonGenerator(queryResult), new Handler<Message<JsonObject>>() {
 				/*
 				 * This handler recieves response from MySql DBMS
 				 */

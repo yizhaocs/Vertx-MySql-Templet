@@ -3,6 +3,7 @@ package com.fuhu;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.core.logging.Logger;
 
 public class SingletonOfUtility {
@@ -21,6 +22,7 @@ public class SingletonOfUtility {
 	}
 
 	public static Logger logger;
+
 	protected void byteArrayToFile(byte[] byteArray) {
 		FileOutputStream out = null;
 		try {
@@ -49,7 +51,7 @@ public class SingletonOfUtility {
 		}
 		return new String(hexChars);
 	}
-	
+
 	protected String getCurServerTime() {
 		long TIME = System.currentTimeMillis();
 		String TIME_STRING = String.valueOf(TIME);
@@ -59,5 +61,12 @@ public class SingletonOfUtility {
 
 	protected String generateUuid() {
 		return java.util.UUID.randomUUID().toString();
+	}
+
+	protected JsonObject rawCommandJsonGenerator(String query) {
+		JsonObject rawCommandJson = new JsonObject();
+		rawCommandJson.putString("action", "raw");
+		rawCommandJson.putString("command", query);
+		return rawCommandJson;
 	}
 }
