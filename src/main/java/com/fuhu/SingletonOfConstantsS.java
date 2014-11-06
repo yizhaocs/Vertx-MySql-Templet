@@ -30,7 +30,8 @@ public class SingletonOfConstantsS {
 	protected final String tableName = "databackup";
 	/* Constants of Headers */
 	protected final String ACCEPT_K = "Accept";
-	protected final String ACCEPT_V = "binary/octet-stream";
+	protected final String ACCEPT_V_BINARY_DATA_V = "binary/octet-stream";
+	protected final String ACCEPT_V_JSON_V = "application/json";
 	protected final String APIKEY_K = "APIKEY";
 	protected final String APIKEY_V = "1234567890abcdef";
 	protected final String CONTENT_TYPE_K = "Content-Type";
@@ -88,4 +89,15 @@ public class SingletonOfConstantsS {
 	protected final static String STATUS = "status";
 	protected final static String STATUS_DESCRIPTION = "statusDescription";
 	protected final static String LAST_TIME_MODIFIED = "lastTimeModified";
+	
+	/**/
+	protected final static String CONTAINS_APIKEY = "containsAPIKEY";
+	protected final static String CONTAINS_CONTENT_TYPE = "containsContentType";
+	protected final static String CONTAINS_SESSION_KEY = "containsSessionKey";
+	protected final static String CONTAINS_ACCEPT = "containsAccept";
+
+	protected final static String VALUE_OF_APIKEY = "valueOfAPIKEY";
+	protected final static String VALUE_OF_CONTENT_TYPE = "valueOfContentType";
+	protected final static String VALUE_OF_SESSION_KEY = "valueOfSessionKey";
+	protected final static String VALUE_OF_ACCEPT = "valueOfAccept";
 }

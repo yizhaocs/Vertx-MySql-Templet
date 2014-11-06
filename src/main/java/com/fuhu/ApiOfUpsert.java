@@ -1,5 +1,8 @@
 package com.fuhu;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.Vertx;
 import org.vertx.java.core.buffer.Buffer;
@@ -11,15 +14,29 @@ public class ApiOfUpsert extends SuperClassOfApis {
 	private BehaviorOfQueryGenerator mBehaviorOfQueryGenerator = null;
 	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
-
+	private Map<String, Boolean> containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map;
+	private Map<String, String> valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map;
 	public ApiOfUpsert() {
 		response = new JsonObject();
 		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
 		mBehaviorOfQueryGenerator = new QueryGeneratorOfUpsert();
 		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfUpsert();
+		
+		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map = new HashMap<>();
+		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map.put(css.CONTAINS_APIKEY, false);
+		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map.put(css.CONTAINS_CONTENT_TYPE, false);
+		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map.put(css.CONTAINS_SESSION_KEY, false);
+		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map.put(css.CONTAINS_ACCEPT, false);
+
+		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map = new HashMap<>();
+		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map.put(css.VALUE_OF_APIKEY, null);
+		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map.put(css.VALUE_OF_CONTENT_TYPE, null);
+		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map.put(css.VALUE_OF_SESSION_KEY, null);
+		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map.put(css.VALUE_OF_ACCEPT, null);
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
+		getHeaders(state, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map);
 		try {
 			bridge_between_server_and_client.bodyHandler(new Handler<Buffer>() {
 				/*

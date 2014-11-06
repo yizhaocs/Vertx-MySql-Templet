@@ -34,7 +34,8 @@ public class MainServerVerticle extends Verticle {
 	SingletonOfUtility utility = SingletonOfUtility.getInstance();
 	SingletonOfSwitchesOfServer switchesOfServer = SingletonOfSwitchesOfServer.getInstance();
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
-	SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
+	static SingletonOfConstantsS css = SingletonOfConstantsS.getInstance();
+	static SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
 	SingletonOfEndResponse endResponse = SingletonOfEndResponse.getInstance();
 	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
 
