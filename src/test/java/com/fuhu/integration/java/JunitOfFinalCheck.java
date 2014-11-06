@@ -16,10 +16,12 @@ public class JunitOfFinalCheck extends SuperClient {
 		ct.mapStates.put(curState, true);
 		boolean allStatesAsserted = true;
 		for (StatesOfClient s : StatesOfClient.values()) {
-			if (ct.mapStates.get(s) == false) {
-				allStatesAsserted = false;
-				System.out.println("_H1_check Failed at the State of:" + s.toString());
-				break;
+			if (s != StatesOfClient.STATE_RESET) {
+				if (ct.mapStates.get(s) == false) {
+					allStatesAsserted = false;
+					System.out.println("_H1_check Failed at the State of:" + s.toString());
+					break;
+				}
 			}
 		}
 

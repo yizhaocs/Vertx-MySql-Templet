@@ -10,7 +10,7 @@ public class ProcessDatabaseResponseOfDelete implements BehaviorOfDatabaseRespon
 		switch (state) {
 		case STATE_PER_PACKAGE_DELETE:
 		case STATE_PER_PACKAGE_AND_USER_DELETE:
-			response.putNumber("status", 0);
+			response.putString(cs.STATUS, cs.OK);
 			bridge_between_server_and_client.response().putHeader(cs.CONTENT_TYPE_K, cs.CONTENT_TYPE_JSON_V);
 			endResponse.endResponseWithJson(state, response, bridge_between_server_and_client);
 			break;
