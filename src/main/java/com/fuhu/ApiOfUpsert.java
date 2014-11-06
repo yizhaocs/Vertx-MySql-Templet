@@ -37,9 +37,8 @@ public class ApiOfUpsert extends SuperClassOfApis {
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-		getHeaders(state, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map);
-		if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
-			try {
+		try {
+			if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
 				bridge_between_server_and_client.bodyHandler(new Handler<Buffer>() {
 					/*
 					 * This handler recieves curl body buffer from Client
@@ -82,13 +81,14 @@ public class ApiOfUpsert extends SuperClassOfApis {
 						});
 					}
 				});
-			} catch (Exception e) {
-				container.logger().error(e.getStackTrace());
-				endResponse.endResponseWithUnknownError(state, response, bridge_between_server_and_client);
-			} finally {
-
 			}
+		} catch (Exception e) {
+			container.logger().error(e.getStackTrace());
+			endResponse.endResponseWithUnknownError(state, response, bridge_between_server_and_client);
+		} finally {
+
 		}
+
 	}
 
 }

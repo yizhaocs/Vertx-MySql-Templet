@@ -36,9 +36,8 @@ public class ApiOfDelete extends SuperClassOfApis {
 	}
 
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
-		getHeaders(state, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map);
-		if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
-			try {
+		try {
+			if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
 				String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_DELETE) ? bridge_between_server_and_client.params().get("userKey") : null;
 				String packageName = bridge_between_server_and_client.params().get("packageName");
 				String streamKey = bridge_between_server_and_client.params().get("streamKey");
@@ -69,12 +68,13 @@ public class ApiOfDelete extends SuperClassOfApis {
 						}
 					}
 				});
-			} catch (Exception e) {
-				container.logger().error(e.getStackTrace());
-				endResponse.endResponseWithUnknownError(state, response, bridge_between_server_and_client);
-			} finally {
-
 			}
+		} catch (Exception e) {
+			container.logger().error(e.getStackTrace());
+			endResponse.endResponseWithUnknownError(state, response, bridge_between_server_and_client);
+		} finally {
+
 		}
+
 	}
 }
