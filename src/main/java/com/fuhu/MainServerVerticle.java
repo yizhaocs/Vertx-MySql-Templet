@@ -74,7 +74,7 @@ public class MainServerVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations/timestamp?ts=1415238108
+		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations/timestamp?ts=9999999999
 		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE_GET, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {

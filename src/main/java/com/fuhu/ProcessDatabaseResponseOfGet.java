@@ -23,6 +23,7 @@ public class ProcessDatabaseResponseOfGet implements BehaviorOfDatabaseResponseP
 							for (int i = 0; i < binaryDataArray.size(); i++) {
 								bytearr[i] = binaryDataArray.get(i);
 							}
+							utility.byteArrayToFile(bytearr);
 							bridge_between_server_and_client.response().putHeader(cs.CONTENT_TYPE_K, cs.CONTENT_TYPE_BINARY_DATA_V);
 							endResponse.endResponseWithBinaryData(state, new Buffer().appendBytes(bytearr), bridge_between_server_and_client);
 						} else {
