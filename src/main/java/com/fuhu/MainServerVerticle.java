@@ -65,7 +65,7 @@ public class MainServerVerticle extends Verticle {
 		httpServer.listen(8080, "0.0.0.0");
 
 		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout
-		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
+		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at upsert API");
@@ -74,8 +74,8 @@ public class MainServerVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations
-		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
+		// curl -v -X GET http://localhost:8080/cloud/comfuhunabiradio/stream/stations/timestamp?ts=1234567890
+		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE_GET, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at get API");
@@ -85,7 +85,7 @@ public class MainServerVerticle extends Verticle {
 		});
 
 		// curl -v -X DELETE http://localhost:8080/cloud/comfuhunabiradio/stream/stations
-		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE, new Handler<HttpServerRequest>() {
+		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at delete API");
@@ -95,7 +95,7 @@ public class MainServerVerticle extends Verticle {
 		});
 
 		// curl -v --request PUT --data-binary "@3.png" http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations --trace-ascii /dev/stdout
-		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
+		httpRouteMatcher.put(cs.PATH_OF_PER_PACKAGE_AND_USER_UPSERT_AND_DELETE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at upsert API");
@@ -104,8 +104,8 @@ public class MainServerVerticle extends Verticle {
 			}
 		});
 
-		// curl -v -X GET http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations
-		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
+		// curl -v -X GET http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations/timestamp?ts=1234567890
+		httpRouteMatcher.get(cs.PATH_OF_PER_PACKAGE_AND_USER_GET, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at get API");
@@ -115,7 +115,7 @@ public class MainServerVerticle extends Verticle {
 		});
 
 		// curl -v -X DELETE http://localhost:8080/cloud/user/yizhao/comfuhunabiradio/stream/stations
-		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE_AND_USER, new Handler<HttpServerRequest>() {
+		httpRouteMatcher.delete(cs.PATH_OF_PER_PACKAGE_AND_USER_UPSERT_AND_DELETE, new Handler<HttpServerRequest>() {
 			@Override
 			public void handle(final HttpServerRequest bridge_between_server_and_client) {
 				container.logger().info("Invoked at delete API");

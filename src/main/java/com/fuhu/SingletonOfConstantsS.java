@@ -18,8 +18,11 @@ public class SingletonOfConstantsS {
 	}
 
 	/* Constants of API path */
-	protected final String PATH_OF_PER_PACKAGE = "/cloud/:packageName/stream/:streamKey";
-	protected final String PATH_OF_PER_PACKAGE_AND_USER = "/cloud/user/:userKey/:packageName/stream/:streamKey";
+	protected final String PATH_OF_PER_PACKAGE_UPSERT_AND_DELETE = "/cloud/:packageName/stream/:streamKey";
+	protected final String PATH_OF_PER_PACKAGE_GET = "/cloud/:packageName/stream/:streamKey/timestamp";
+	protected final String PATH_OF_PER_PACKAGE_AND_USER_UPSERT_AND_DELETE = "/cloud/user/:userKey/:packageName/stream/:streamKey";
+	protected final String PATH_OF_PER_PACKAGE_AND_USER_GET = "/cloud/user/:userKey/:packageName/stream/:streamKey/timestamp";
+	protected final String TS = "ts";
 	/* Constants of table columns */
 	//protected final String[] perPackage_TableColumns = {"package_name", "stream_key", "binary_data", "is_deleted", "created_at", "updated_at" };
 	protected final String[] perPackageAndUser_TableColumns = {"user_key", "package_name", "stream_key", "binary_data", "updated_at" };
