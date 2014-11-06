@@ -40,20 +40,10 @@ public class ApiOfGet extends SuperClassOfApis {
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
 			if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
-				String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? bridge_between_server_and_client.params().get("userKey") : null;
-				String packageName = bridge_between_server_and_client.params().get("packageName");
-				String streamKey = bridge_between_server_and_client.params().get("streamKey");
-				String ts = bridge_between_server_and_client.params().get(cs.TS);
+				String query = mBehaviorOfQueryGenerator.execute(state, response,bridge_between_server_and_client,null,null);
+				JsonObject rawCommand = utility.rawCommandJsonGenerator(query);
 
-				String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[4] };
-				String[] whereClauseOperator = { "=", "=", "=", "<" };
-				String[] whereClauseValues = { state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? "'" + userKey + "'" : "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'", ts };
-
-				String queryResult = queryGenerator.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseOperator, whereClauseValues);
-
-				System.out.println("query:" + queryResult);
-
-				vertx.eventBus().send("backend", utility.rawCommandJsonGenerator(queryResult), new Handler<Message<JsonObject>>() {
+				vertx.eventBus().send("backend", rawCommand, new Handler<Message<JsonObject>>() {
 					/*
 					 * This handler recieves response from MySql DBMS
 					 */

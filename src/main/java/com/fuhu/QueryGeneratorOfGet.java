@@ -10,15 +10,22 @@ import org.vertx.java.core.json.JsonObject;
 public class QueryGeneratorOfGet  implements BehaviorOfQueryGenerator{
 
 	@Override
-	public void execute(StatesOfServer state, Map<String, JsonObject> transactionJsonMap, Map<String, JsonArray> responseDataInJsonArray_Map, Map<String, String> device_uuid_Map, JsonObject responseDataInJsonObject, JsonObject response, Map<String, Object> curlData_field_value_map, Buffer curlBody,
-			HttpServerRequest bridge_between_server_and_client) {
+	public String execute(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client,Buffer curlBody, String currentTime) {
 		switch (state) {
 		case STATE_PER_PACKAGE_GET:
 		case STATE_PER_PACKAGE_AND_USER_GET:
-			
-			break;
+			String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? bridge_between_server_and_client.params().get("userKey") : null;
+			String packageName = bridge_between_server_and_client.params().get("packageName");
+			String streamKey = bridge_between_server_and_client.params().get("streamKey");
+			String ts = bridge_between_server_and_client.params().get(cs.TS);
+
+			String[] whereClauseCoulmns = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[4] };
+			String[] whereClauseOperator = { "=", "=", "=", "<" };
+			String[] whereClauseValues = { state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_GET) ? "'" + userKey + "'" : "'\"" + "\"'", "'" + packageName + "'", "'" + streamKey + "'", ts };
+			String queryResult = queryGenerator.select(cs.perPackageAndUser_TableColumns[3], cs.tableName, whereClauseCoulmns, whereClauseOperator, whereClauseValues);
+			return queryResult;
 		default:
-			break;
+			return null;
 		}
 	}
 

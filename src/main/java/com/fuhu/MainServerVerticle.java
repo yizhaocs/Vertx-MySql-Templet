@@ -30,7 +30,7 @@ import org.vertx.java.platform.Verticle;
  This is a simple Java verticle which receives `ping` messages on the event bus and sends back `pong` replies
  */
 public class MainServerVerticle extends Verticle {
-	SingletonOfQueryGenerator queryGenerator = SingletonOfQueryGenerator.getInstance();
+	SingletonOfQueryBuilder queryGenerator = SingletonOfQueryBuilder.getInstance();
 	SingletonOfUtility utility = SingletonOfUtility.getInstance();
 	SingletonOfSwitchesOfServer switchesOfServer = SingletonOfSwitchesOfServer.getInstance();
 	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();

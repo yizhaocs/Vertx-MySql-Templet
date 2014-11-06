@@ -45,22 +45,10 @@ public class ApiOfUpsert extends SuperClassOfApis {
 					 */
 					@Override
 					public void handle(Buffer curlBody) {
-						String userKey = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? bridge_between_server_and_client.params().get("userKey") : null;
-						String packageName = bridge_between_server_and_client.params().get("packageName");
-						String streamKey = bridge_between_server_and_client.params().get("streamKey");
-						// StringBuilder binaryString = new StringBuilder(bytesToHex(curlBody.getBytes()));
-						String hex = utility.byteArrayToHexString(curlBody.getBytes());
 						final String currentTime = utility.getCurServerTime();
-						String[] insertColumnsWithoutUserKey = { cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4] };
-						String[] valuesWithoutUserKey = { "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime };
-						String[] insertColumnsWithUserKey = { cs.perPackageAndUser_TableColumns[0], cs.perPackageAndUser_TableColumns[1], cs.perPackageAndUser_TableColumns[2], cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4] };
-						String[] valuesWithUserKey = { "'" + userKey + "'", "'" + packageName + "'", "'" + streamKey + "'", "X'" + hex + "'", currentTime };
-						String[] updateColumns = { cs.perPackageAndUser_TableColumns[3], cs.perPackageAndUser_TableColumns[4] };
-						String queryResult = state.equals(StatesOfServer.STATE_PER_PACKAGE_AND_USER_UPSERT) ? queryGenerator.upsert(cs.tableName, insertColumnsWithUserKey, valuesWithUserKey, updateColumns) : queryGenerator.upsert(cs.tableName, insertColumnsWithoutUserKey, valuesWithoutUserKey,
-								updateColumns);
-						System.out.println("query:" + queryResult);
-
-						vertx.eventBus().send("backend", utility.rawCommandJsonGenerator(queryResult), new Handler<Message<JsonObject>>() {
+						String query = mBehaviorOfQueryGenerator.execute(state, response, bridge_between_server_and_client, curlBody,currentTime);
+						JsonObject rawCommand = utility.rawCommandJsonGenerator(query);
+						vertx.eventBus().send("backend", rawCommand, new Handler<Message<JsonObject>>() {
 							/*
 							 * This handler recieves response from MySql DBMS
 							 */

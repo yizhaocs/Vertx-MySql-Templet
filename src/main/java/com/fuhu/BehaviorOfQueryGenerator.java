@@ -10,7 +10,8 @@ import org.vertx.java.core.json.JsonObject;
 public interface BehaviorOfQueryGenerator {
 	static SingletonOfConstantsS css = SingletonOfConstantsS.getInstance();
 	static SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
-
-	public void execute(StatesOfServer state, Map<String, JsonObject> transactionJsonMap, Map<String, JsonArray> responseDataInJsonArray_Map, Map<String, String> device_uuid_Map, JsonObject responseDataInJsonObject, JsonObject response, Map<String, Object> curlData_field_value_map, Buffer curlBody,
-			HttpServerRequest bridge_between_server_and_client);
+	SingletonOfConstantsS cs = SingletonOfConstantsS.getInstance();
+	SingletonOfQueryBuilder queryGenerator = SingletonOfQueryBuilder.getInstance();
+	SingletonOfUtility utility = SingletonOfUtility.getInstance();
+	public String execute(StatesOfServer state, JsonObject response, HttpServerRequest bridge_between_server_and_client,Buffer curlBody, String currentTime);
 }
