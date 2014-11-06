@@ -38,7 +38,7 @@ public class MainServerVerticle extends Verticle {
 	static SingletonOfPrintingMethodsOfServer pmfs = SingletonOfPrintingMethodsOfServer.getInstance();
 	SingletonOfEndResponse endResponse = SingletonOfEndResponse.getInstance();
 	SingletonOfServerConfigSetup mSingletonOfServerConfigSetup = SingletonOfServerConfigSetup.getInstance();
-
+	SingletonOfHeaderChecker mSingletonOfHeaderChecker = SingletonOfHeaderChecker.getInstance();
 	ApiOfUpsert mApiOfPost;
 	ApiOfGet mApiOfGet;
 	ApiOfDelete mApiOfDelete;
