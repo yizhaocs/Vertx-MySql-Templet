@@ -178,6 +178,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.plugin.version}</version>
 				<configuration>
+				<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=512m -XX:PermSize=512m</argLine>
 					<includes>
 						<include>**/unit/*Test*.java</include>
 					</includes>
@@ -194,8 +195,9 @@
 							<value>target/mods</value>
 						</property>
 					</systemProperties>
+					<argLine>-Xms1024m -Xmx1024m -XX:MaxPermSize=512m -XX:PermSize=512m</argLine>
 					<includes>
-						<include>**/integration/**</include>
+						<include>**/integration/**/*Test*</include>
 					</includes>
 				</configuration>
 				<executions>

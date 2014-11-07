@@ -1,9 +1,6 @@
 package com.fuhu.integration.java;
 
 import org.vertx.java.core.buffer.Buffer;
-import org.vertx.java.core.http.HttpClientRequest;
-
-
 
 public class SingletonOfPrintingMethodsOfClient {
 	static SingletonOfConstantsT ct = SingletonOfConstantsT.getInstance();
@@ -45,9 +42,9 @@ public class SingletonOfPrintingMethodsOfClient {
 			System.out.println(SuperClient.getState() + " " + "Response Send:");
 			System.out.println("HTTP method:" + BehaviorOfCurlCommandsSetter.currentRequest);
 			System.out.println("Path:" + BehaviorOfCurlCommandsSetter.currentPath);
-//			if (!SuperClient.getState().equals(StatesOfClient.STATE_POST)) {
-//				System.out.println("Json Body:" + BehaviorOfCurlCommandsSetter.currentDataSendToServer);
-//			}
+			// if (!SuperClient.getState().equals(StatesOfClient.STATE_POST)) {
+			// System.out.println("Json Body:" + BehaviorOfCurlCommandsSetter.currentDataSendToServer);
+			// }
 			System.out.println(ct.END_SMALL);
 		}
 	}

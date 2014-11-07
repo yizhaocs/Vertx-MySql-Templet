@@ -69,7 +69,7 @@ public class SingletonOfPrintingMethodsOfServer {
 			utility.logger.info(" ");
 		}
 	}
-
+	
 	protected void printTransactionJson(StatesOfServer state, JsonObject raw) {
 		if (sos.isTesting_Print_Switch()) {
 			utility.logger.info(scs.HEADER_BEGIN + state + scs.HEADER_END);

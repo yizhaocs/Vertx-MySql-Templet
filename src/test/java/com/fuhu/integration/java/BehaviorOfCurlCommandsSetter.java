@@ -1,10 +1,6 @@
 package com.fuhu.integration.java;
 
-import java.io.File;
-
 import org.vertx.java.core.buffer.Buffer;
-
-
 
 public abstract class BehaviorOfCurlCommandsSetter {
 	protected SingletonOfConstantsT ct = SingletonOfConstantsT.getInstance();

@@ -1,13 +1,5 @@
 package com.fuhu.integration.java;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Arrays;
-
-import org.apache.commons.io.IOUtils;
-import org.vertx.java.core.buffer.Buffer;
-
 public class CurlCommandsSetterOfPerPackage extends BehaviorOfCurlCommandsSetter {
 
 	@Override
