@@ -9,7 +9,7 @@ import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
-public class ApiOfGet extends SuperClassOfApis {
+public class ApiOfGet extends MainServerVerticle {
 	private BehaviorOfQueryGenerator mBehaviorOfQueryGenerator = null;
 	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
 	private JsonObject response;
@@ -20,7 +20,7 @@ public class ApiOfGet extends SuperClassOfApis {
 		response = new JsonObject();
 		response.putString(cs.NABI_CLIENT_DATA_BACKUP_APIVersion_K, cs.NABI_CLIENT_DATA_BACKUP_APIVersion_V);
 		mBehaviorOfQueryGenerator = new QueryGeneratorOfGet();
-		mBehaviorOfProcessSendResponse = new ProcessDatabaseResponseOfGet();
+		mBehaviorOfProcessSendResponse = new DatabaseResponseProcessorOfGet();
 
 		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map = new HashMap<>();
 		containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map.put(css.CONTAINS_APIKEY, false);

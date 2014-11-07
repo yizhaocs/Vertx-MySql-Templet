@@ -5,7 +5,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonArray;
 import org.vertx.java.core.json.JsonObject;
 
-public class ProcessDatabaseResponseOfGet implements BehaviorOfDatabaseResponseProcessor {
+public class DatabaseResponseProcessorOfGet implements BehaviorOfDatabaseResponseProcessor {
 	@Override
 	public void execute(StatesOfServer state, JsonObject response, JsonObject databaseMessageBody, HttpServerRequest bridge_between_server_and_client, String currentTime) {
 		switch (state) {
