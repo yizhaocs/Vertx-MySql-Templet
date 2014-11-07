@@ -34,6 +34,7 @@ public class ApiOfDelete extends StrategyPatternOfParentAPI {
 		valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map.put(css.VALUE_OF_ACCEPT, null);
 	}
 
+	@Override
 	public void execute(final StatesOfServer state, final Vertx vertx, final HttpServerRequest bridge_between_server_and_client) {
 		try {
 			if (mSingletonOfHeaderChecker.execute(state, response, bridge_between_server_and_client, containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map, valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map)) {
