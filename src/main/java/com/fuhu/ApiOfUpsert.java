@@ -10,9 +10,7 @@ import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.json.JsonObject;
 
-public class ApiOfUpsert extends MainServerVerticle {
-	private BehaviorOfQueryGenerator mBehaviorOfQueryGenerator = null;
-	private BehaviorOfDatabaseResponseProcessor mBehaviorOfProcessSendResponse = null;
+public class ApiOfUpsert extends StrategyPatternOfParentAPI {
 	private JsonObject response;
 	private Map<String, Boolean> containsAPIKEY_containsContentType_containsSessionKey_containsAccept_Map;
 	private Map<String, String> valueOfAPIKEY_valueOfContentType_valueOfSessionKey_valueOfAccept_Map;
